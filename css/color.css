@@ -1,1 +1,15 @@
-/*# sourceMappingURL=color.css.map */
+.text-main-light {
+  color: #FBFAF4;
+}
+
+.text-main-spec {
+  color: #A00000;
+}
+
+.bg-main-spec {
+  background-color: #A00000;
+}
+
+.bg-main-medi {
+  background-color: #EBEAE4;
+}/*# sourceMappingURL=color.css.map */

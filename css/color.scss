@@ -5,3 +5,16 @@ $lightGrayColor: #F5F5F5;
 $mediumGrayColor: #D9D9D9;
 $deepGrayColor: #696969;
 $whiteColor: #FFF;
+
+.text-main-light {
+  color: $lightMainColor;
+}
+.text-main-spec {
+  color: $specialMainColor;
+}
+.bg-main-spec {
+  background-color: $specialMainColor;
+}
+.bg-main-medi {
+  background-color: $mediumMainColor;
+}

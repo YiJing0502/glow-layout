@@ -4,6 +4,7 @@
   border: solid 1px $specialMainColor;
   background-color: $specialMainColor;
   color: $lightMainColor;
+  border-radius: 0;
   &:hover{
     background-color: $specialMainColor;
     color: $whiteColor;
@@ -12,6 +13,7 @@
 // 深紅普通按鈕
 .btn-normal-spec {
   color: $deepGrayColor;
+  border-radius: 0;
   &:hover{
     background-color: $specialMainColor;
     color: $whiteColor;
@@ -22,6 +24,7 @@
   border: solid 1px $deepGrayColor;
   background-color: $deepGrayColor;
   color: $lightMainColor;
+  border-radius: 0;
   &:hover{
     background-color: $deepGrayColor;
     color: $lightMainColor;
@@ -30,6 +33,7 @@
 // 深灰普通按鈕
 .btn-normal-gray {
   color: $deepGrayColor;
+  border-radius: 0;
   &:hover{
     background-color: $deepGrayColor;
     color: $lightMainColor;
@@ -38,6 +42,7 @@
 // 中主普通按鈕
 .btn-normal-medium {
   color: $deepGrayColor;
+  border-radius: 0;
   &:hover{
     background-color: $mediumMainColor;
     color: $deepGrayColor;

@@ -4,4 +4,9 @@ const bsProductModal = new bootstrap.Modal(myProductModal);
 productModalBtn.addEventListener('click', () => {
   bsProductModal.show();
 })
-console.log(myProductModal);
+const delProductModalBtn = document.querySelector('.delProductModalBtn');
+const myDelProductModal = document.querySelector('.myDelProductModal');
+const bsDelProductModal = new bootstrap.Modal(myDelProductModal);
+bsDelProductModal.show();
+delProductModalBtn.addEventListener('click', () => {
+})

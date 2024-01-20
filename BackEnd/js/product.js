@@ -3,6 +3,7 @@ import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.11/vue
 import { baseUrl, apiPath } from './config.js';
 let myProductModal;
 let myDeleModal;
+let myResultModal;
 const app = createApp({
   data() {
     return {
@@ -10,7 +11,10 @@ const app = createApp({
       showData: {},
       inEditProductMode: true,
       inDeleProductMode: true,
-
+      serverMessage: {
+        message: '',
+        success: true,
+      },
     };
   },
   methods: {
@@ -25,7 +29,7 @@ const app = createApp({
     getAdminAddProductModal(){
       this.inEditProductMode = false;
       this.showData = {
-        imagesUrl: [],
+        imagesUrl: [''],
       };
       myProductModal.show();
     },
@@ -44,22 +48,31 @@ const app = createApp({
       // 重新賦值給this.showData.imagesUrl
       this.showData.imagesUrl = imagesUrlArray;
     },
+    addImage(){
+      if(this.showData.imagesUrl === undefined) {
+        this.showData.imagesUrl = ['',];
+      }else{
+        this.showData.imagesUrl.push('');
+      };
+    },
     // ajax, 確認使用者是否登入
     postApiUserCheck() {
       const url = `${baseUrl}/v2/api/user/check`;
       axios.post(url)
         .then((res)=>{
           if(res.data.success){
-            // alert('成功進入GLOW後台，祝您有個美好的一天');
+            this.serverMessage.message = '您已進入GLOW後台，祝您有個美好的一天';
+            this.serverMessage.success = res.data.success;
+            myResultModal.show();
             this.getAdminProductsAll();
-            console.log('ok');
+            console.dir(myResultModal._isShown);
           }
         })
         .catch((err)=>{
-          if(!err.data.success){
-            alert(err.data.message);
-            window.location = 'login.html';
-          }
+          this.serverMessage.message = err.response.data.message;
+          this.serverMessage.success = err.response.data.success;
+          myResultModal.show();
+          window.location = 'login.html';
         });
     },
     // ajax, 取得所有產品資料
@@ -69,72 +82,79 @@ const app = createApp({
         .then((res)=>{
           if(res.data.success){
             this.productsData = res.data.products;
-            console.log(this.productsData);
           }
         })
         .catch((err)=>{
-          if(!err.data.success){
-            alert(err.data.message);
-          }
+          this.serverMessage.message = err.response.data.message;
+          this.serverMessage.success = err.response.data.success;
+          myResultModal.show();
         })
     },
     // // ajax, 新增特定產品資料
-    // postAdminProduct() {
-    //   const url = `${baseUrl}/v2/api/${apiPath}/admin/product`;
-    //   const data = {
-    //     data: this.showData,
-    //   };
-    //   axios.post(url, data)
-    //     .then(res=>{
-    //       if(res.data.success){
-    //         this.getAdminProductsAll();
-    //         alert(res.data.message);
-    //         myProductModal.hide();
-    //       };
-    //     })
-    //     .catch(err=>{
-    //       if(!err.data.success){
-    //         alert(err.data.message);
-    //       }
-    //     });
-    // },
+    postAdminProduct() {
+      const url = `${baseUrl}/v2/api/${apiPath}/admin/product`;
+      const data = {
+        data: this.showData,
+      };
+      axios.post(url, data)
+        .then(res=>{
+          this.getAdminProductsAll();
+          this.serverMessage.message = res.data.message;
+          this.serverMessage.success = res.data.success;
+          myProductModal.hide();
+          myResultModal.show();
+        })
+        .catch(err=>{
+          this.serverMessage.message = err.response.data.message;
+          this.serverMessage.success = err.response.data.success;
+          myResultModal.show();
+        });
+    },
     // // ajax, 更新特定產品資料
-    // putAdminProduct(id){
-    //   const url = `${baseUrl}/v2/api/${apiPath}/admin/product/${id}`;
-    //   const data = {
-    //     data: this.showData
-    //   };
-    //   axios.put(url, data)
-    //     .then(res=>{
-    //       if(res.data.success){
-    //         this.getAdminProductsAll();
-    //         alert(res.data.message);
-    //       };
-    //     })
-    //     .catch(err=>{
-    //       if(!err.data.success){
-    //         alert(err.data.message);
-    //       }
-    //     });
-    // },
-    // // ajax, 刪除特定產品資料
-    // deleteAdminProduct(){
-    //   const id = this.showData.id;
-    //   const url = `${baseUrl}/v2/api/${apiPath}/admin/product/${id}`;
-    //   axios.delete(url)
-    //     .then(res=>{
-    //       if(res.data.success){
-    //         myDeleModal.hide();
-    //         this.getAdminProductsAll();
-    //         alert(res.data.message);
-    //       }
-    //     })
-    //     .catch(err=>{
-    //       if(!err.data.success){
-    //         alert(err.data.message);
-    //       }
-    //     })
-    // },
+    putAdminProduct(id){
+      const url = `${baseUrl}/v2/api/${apiPath}/admin/product/${id}`;
+      const data = {
+        data: this.showData
+      };
+      axios.put(url, data)
+        .then(res=>{
+          if(res.data.success){
+            this.getAdminProductsAll();
+            this.serverMessage.message = res.data.message;
+            this.serverMessage.success = res.data.success;
+            myProductModal.hide();
+            myResultModal.show();
+          };
+        })
+        .catch(err=>{
+          if(!err.data.success){
+            this.serverMessage.message = err.response.data.message;
+            this.serverMessage.success = err.response.data.success;
+            myResultModal.show();
+          }
+        });
+    },
+    // ajax, 刪除特定產品資料
+    deleteAdminProduct(){
+      const id = this.showData.id;
+      const url = `${baseUrl}/v2/api/${apiPath}/admin/product/${id}`;
+      axios.delete(url)
+        .then(res=>{
+          if(res.data.success){
+            myDeleModal.hide();
+            this.getAdminProductsAll();
+            this.serverMessage.message = res.data.message;
+            this.serverMessage.success = res.data.success;
+            myResultModal.show();
+          }
+        })
+        .catch(err=>{
+          myDeleModal.hide();
+          this.serverMessage.message = err.response.data.message;
+          this.serverMessage.success = err.response.data.success;
+          myResultModal.show();
+        })
+    },
     scrollToBottom() {
       // 獲取滾動元素的引用
       const scrollContainer = this.$refs.scrollContainer;
@@ -152,29 +172,20 @@ const app = createApp({
     axios.defaults.headers.common['Authorization'] = token;
     // 觸發確認是否登入的方法
     this.postApiUserCheck();
-    // 獲取 productModal ＤＯＭ
-    const bsProductModal = document.querySelector('.bsProductModal');
+    // 獲取 bsProductModal ＤＯＭ
+    const bsProductModal = document.querySelector('#bsProductModal', {backdrop: 'static', keyboard: false});
     // 建立 bootstrap modal 實體
-    // myProductModal = new bootstrap.Modal(productModal, {backdrop: 'static', keyboard: false});
     myProductModal = new bootstrap.Modal(bsProductModal);
-    // 獲取 delProductModal ＤＯＭ
-    const bsDeleModal = document.querySelector('.bsDeleModal');
+    // 獲取 bsDeleModal ＤＯＭ
+    const bsDeleModal = document.querySelector('#bsDeleModal');
     // 建立 bootstrap modal 實體
     myDeleModal = new bootstrap.Modal(bsDeleModal);
+    // 獲取 bsResultModal DOM
+    const bsResultModal = document.querySelector('#bsResultModal');
+    // 建立 bootstrap modal 實體
+    myResultModal = new bootstrap.Modal(bsResultModal);
 
   },
 });
 app.mount('#app');
 
-// const productModalBtn = document.querySelector('.productModalBtn');
-// const bsProductModal = document.querySelector('.myProductModal');
-// myProductModal = new bootstrap.Modal(myProductModal);
-// productModalBtn.addEventListener('click', () => {
-//   bsProductModal.show();
-// })
-// const delProductModalBtn = document.querySelector('.delProductModalBtn');
-// const bsDeleModal = document.querySelector('.myDeleModal');
-
-// bsDeleModal.show();
-// delProductModalBtn.addEventListener('click', () => {
-// })

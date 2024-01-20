@@ -25,7 +25,7 @@
           <span class="visually-hidden">Loading...</span>
         </div>
         <br>
-        <h4>請稍候，加載產品中</h4>
+        <h4>請稍候，加載中</h4>
       </div>
       <div v-else>
         <div class="text-end mt-4">
@@ -75,8 +75,8 @@
     </div>
     <!-- Modal -->
     <!-- 產品編輯或新增 -->
-    <div class="modal fade bsProductModal" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-      tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal fade" id="bsProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
           <div class="modal-header">
@@ -126,11 +126,12 @@
                     <div class="mb-3 col">
                       <label for="original_price" class="form-label">原價</label>
                       <input type="text" class="form-control" id="original_price" placeholder="請輸入原價"
-                        v-model="showData.origin_price">
+                        v-model.number="showData.origin_price">
                     </div>
                     <div class="mb-3 col">
                       <label for="price" class="form-label">售價</label>
-                      <input type="text" class="form-control" id="price" placeholder="請輸入售價" v-model="showData.price">
+                      <input type="text" class="form-control" id="price" placeholder="請輸入售價"
+                        v-model.number="showData.price">
                     </div>
                   </div>
                   <div class="row">
@@ -177,7 +178,7 @@
                         <label for="formFile" class="form-label">上傳圖片檔案</label>
                         <input class="form-control" type="file" id="formFile">
                         <hr>
-                        <button class="btn btn-solid-gray w-100" @click="showData.imagesUrl.push('')">手動新增圖片</button>
+                        <button class="btn btn-solid-gray w-100" @click="addImage">手動新增圖片</button>
                       </div>
                     </div>
                   </div>
@@ -188,18 +189,21 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-normal-gray" data-bs-dismiss="modal">關閉</button>
-            <button type="button" class="btn btn-solid-spec">{{inEditProductMode ? '更新' : '新增'}}</button>
+            <button type="button" class="btn btn-solid-spec"
+              @click="inEditProductMode ? putAdminProduct(showData.id) : postAdminProduct()">{{inEditProductMode ? '更新'
+              : '新增'}}</button>
           </div>
         </div>
       </div>
     </div>
     <!-- 刪除產品 -->
-    <div class="modal fade bsDeleModal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-      aria-hidden="true">
+    <div class="modal fade" id="bsDeleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header bg-main-spec text-main-light">
-            <h3 class="modal-title fs-5" id="exampleModalLabel">{{inDeleProductMode ? '刪除產品' : '刪除圖片'}}</h3>
+            <h3 class="modal-title fs-5" id="exampleModalLabel">
+              刪除產品
+            </h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
@@ -208,12 +212,31 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-normal-gray" data-bs-dismiss="modal">關閉</button>
-            <button type="button" class="btn btn-normal-spec">{{inDeleProductMode ? '刪除此產品' : '刪除此圖片'}}</button>
+            <button type="button" class="btn btn-normal-spec" @click="deleteAdminProduct">刪除此產品</button>
           </div>
         </div>
       </div>
     </div>
-
+    <!-- 結果moddal -->
+    <div class="modal fade" id="bsResultModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
+      tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">
+              {{ serverMessage.success ? '成功' : '失敗'}}
+            </h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            {{ serverMessage.message }}
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-normal-gray" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">關閉</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
   <!-- bootStrapJs -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

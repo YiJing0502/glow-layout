@@ -47,6 +47,9 @@ body {
 .nav-link {
   color: #A00000;
 }
+.nav-link:hover {
+  color: #A00000;
+}
 
 .btn-close {
   --bs-btn-close-focus-shadow: 0 0 0 0.25rem $whiteColor;

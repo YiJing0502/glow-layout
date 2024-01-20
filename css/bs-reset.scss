@@ -16,7 +16,9 @@
 // taps
 .nav-link {
   color: $specialMainColor;
-
+  &:hover{
+    color: $specialMainColor;
+  }
 }
 // bs-btn-close
 .btn-close {

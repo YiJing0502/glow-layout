@@ -39,7 +39,7 @@ const app = createApp({
       this.showData = JSON.parse(JSON.stringify(this.productsData[id]));
       myDeleModal.show();
     },
-    // // modal, 刪除特定圖片
+    // fn, 刪除特定圖片
     deleteImage(myIndex){
       // 複製一份imagesUrl陣列，以免修改原陣列
       let imagesUrlArray = [...this.showData.imagesUrl];
@@ -48,12 +48,76 @@ const app = createApp({
       // 重新賦值給this.showData.imagesUrl
       this.showData.imagesUrl = imagesUrlArray;
     },
+    // fn, 新增特定圖片
     addImage(){
       if(this.showData.imagesUrl === undefined) {
         this.showData.imagesUrl = ['',];
       }else{
         this.showData.imagesUrl.push('');
       };
+    },
+    // fn, 上傳多張圖片
+    uploadImages(){
+      const uploadServerMessage = {
+        message: '',
+        success: true,
+      };
+      const fileInput = this.$refs.myImgUploadInput;
+      const multipleFilesArray = [...fileInput.files];
+      // 驗證檔案大小、檔案類型
+      for (let index = 0; index < multipleFilesArray.length; index++) {
+        const element = multipleFilesArray[index];
+        const fileSizeInBytes = element.size;
+        const limitedFileSize = 3 * 1024 * 1024;
+        console.log(element.type);
+        if(fileSizeInBytes > limitedFileSize) {
+          this.serverMessage.message = '圖片檔案不可超過3MB';
+          this.serverMessage.success = false;
+          myResultModal.show();
+          return;
+        };
+        if(element.type !== 'image/jpeg' && element.type !== 'image/jpg' && element.type !== 'image/png') {
+          this.serverMessage.message = '只接收「jpg」、「jpeg」、「png」類型的圖片檔案';
+          this.serverMessage.success = false;
+          myResultModal.show();
+          return;
+        };
+      };
+      // 上傳檔案
+      multipleFilesArray.forEach((item,index)=>{
+        console.log(item);
+        // 產生一個新的上傳表單格式
+        const formData = new FormData();
+        // 夾帶欄位與要上傳的檔案
+        formData.append('file-to-upload', item);
+        // 上傳檔案
+        axios.post(`${baseUrl}/api/${apiPath}/admin/upload`, formData)
+          .then(res=>{
+            console.log(res, 'res');
+            if(res.data.success){
+              uploadServerMessage.success = res.data.success;
+              uploadServerMessage.message = '上傳成功';
+              if(this.showData.imagesUrl === undefined) {
+                this.showData.imagesUrl = [];
+                this.showData.imagesUrl.push(res.data.imageUrl);
+              }else{
+                this.showData.imagesUrl.push(res.data.imageUrl);
+              };
+              this.serverMessage.message = uploadServerMessage.message;
+              this.serverMessage.success = uploadServerMessage.success;
+              myResultModal.show();
+            }else{
+              this.serverMessage.success = res.data.success;
+              this.serverMessage.message = res.data.message;
+              myResultModal.show();
+            }
+          })
+          .catch(err=>{
+            this.serverMessage.message = err.response.data.message;
+            this.serverMessage.success = err.response.data.success;
+            myResultModal.show();
+          })
+      });
     },
     // ajax, 確認使用者是否登入
     postApiUserCheck() {

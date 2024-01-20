@@ -176,7 +176,8 @@
                     <div class="card">
                       <div class="card-body">
                         <label for="formFile" class="form-label">上傳圖片檔案</label>
-                        <input class="form-control" type="file" id="formFile">
+                        <input class="form-control" type="file" ref="myImgUploadInput" @change="uploadImages"
+                          accept="image/jpeg, image/jpg, image/png" multiple>
                         <hr>
                         <button class="btn btn-solid-gray w-100" @click="addImage">手動新增圖片</button>
                       </div>

@@ -1,3 +1,7 @@
+// bs-
+.form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
+  background-color: $mediumMainColor;
+}
 // bs-input 改動既有設定
 .form-control:focus{
   border-color: $deepGrayColor;

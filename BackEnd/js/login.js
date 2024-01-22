@@ -1,11 +1,20 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.11/vue.esm-browser.min.js';
 import { baseUrl } from './config.js';
+import ResultModal from '../components/ResultModal.js';
+let myResultModal;
 const app = createApp({
   data() {
     return {
       email: '',
       password: '',
+      serverMessage: {
+        message: '',
+        success: true,
+      },
     };
+  },
+  components: {
+    ResultModal
   },
   methods: {
     postAdminSignin() {
@@ -19,8 +28,10 @@ const app = createApp({
       };
       axios.post(`${baseUrl}/v2/admin/signin`, obj)
         .then((res)=>{
+          this.serverMessage.message = res.data.message;
+          this.serverMessage.success = res.data.success;
+          myResultModal.show();
           if(res.data.success){
-            alert(res.data.message);
             const { expired, token } = res.data;
             // 寫入 cookie 的 記錄 token
             // 使用expired 設定 token 有效時間
@@ -32,10 +43,19 @@ const app = createApp({
           }
         })
         .catch((err)=>{
-          alert(err.data.message);
+          console.log(err);
+          this.serverMessage.message = err.response.data.message;
+          this.serverMessage.success = err.response.data.success;
+          myResultModal.show();
           return;
         })
     }
+  },
+  mounted() {
+    // 獲取 bsResultModal DOM
+    const bsResultModal = document.querySelector('#bsResultModal');
+    // 建立 bootstrap modal 實體
+    myResultModal = new bootstrap.Modal(bsResultModal);
   },
 });
 

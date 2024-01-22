@@ -146,7 +146,6 @@ const app = createApp({
             this.serverMessage.success = res.data.success;
             myResultModal.show();
             this.getAdminProductsAll();
-            console.dir(myResultModal._isShown);
           }
         })
         .catch((err)=>{

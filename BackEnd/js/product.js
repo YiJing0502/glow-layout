@@ -231,6 +231,7 @@ const app = createApp({
   data() {
     return {
       productsData: [],
+      paginationData: [],
       pageData: {},
       infoData: [],
       showData: {},
@@ -240,6 +241,7 @@ const app = createApp({
         message: '',
         success: true,
       },
+      productsCategory: [],
     };
   },
   components:{
@@ -379,6 +381,7 @@ const app = createApp({
         .then((res)=>{
           if(res.data.success){
             this.productsData = res.data.products;
+            this.paginationData = res.data.products;
             this.pagination(1);
           }
         })
@@ -453,7 +456,7 @@ const app = createApp({
     },
     // fn, 分頁
     pagination(nowPage){
-      const data = this.productsData;
+      const data = this.paginationData;
       // 取得全部資料長度
       const dataLength = Object.keys(data).length;
       // 設定每頁資料量
@@ -491,12 +494,35 @@ const app = createApp({
       };
       this.pageData = page;
     },
+    // fn, 至底部
     scrollToBottom() {
       // 獲取滾動元素的引用
       const scrollContainer = this.$refs.scrollContainer;
 
       // 使用scrollIntoView方法使元素滾動到可視區域的底部
       scrollContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    },
+    // 取得最新 category
+    getCategory(){
+      // 使用 Set 來確保類別的唯一性
+      const uniqueCategories = new Set();
+      Object.keys(this.productsData).forEach((element)=>{
+        const category = this.productsData[element].category;
+        uniqueCategories.add(category);
+      });
+      // 轉換 Set 為陣列，然後將它設置到 data 中的 productsCategory
+      this.productsCategory = Array.from(uniqueCategories);
+    },
+    // 篩選 category
+    filterCategory(category){
+      this.paginationData = [];
+      Object.keys(this.productsData).forEach((element, index)=>{
+        const item = this.productsData[element];
+        if(item.category === category){
+          this.paginationData.push(item)
+        };
+      });
+      this.pagination(1);
     },
   },
   mounted() { // 在 Vue 實例掛載到 DOM 元素後執行程式碼

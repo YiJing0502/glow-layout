@@ -23,6 +23,19 @@
       </div>
       <div v-else>
         <div class="text-end mt-4">
+          <div class="btn-group">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false" @click="getCategory">
+              篩選類別
+            </button>
+            <ul class="dropdown-menu">
+              <li v-for="(item, index) in productsCategory" :key="index">
+                <button class="dropdown-item" href="#" @click="filterCategory(item)">
+                  {{ item }}
+                </button>
+              </li>
+            </ul>
+          </div>
           <button type="button" @click="scrollToBottom" class="btn">前往底部</button>
           <button class="btn btn-solid-spec" @click="getAdminAddProductModal">
             建立新的產品

@@ -72,6 +72,23 @@ body {
   border-color: #696969;
 }
 
+.page-link {
+  color: #696969;
+}
+.page-link:hover {
+  color: #A00000;
+}
+.page-link:focus {
+  box-shadow: none;
+}
+
+.active > .page-link, .page-link.active {
+  z-index: 3;
+  color: #FBFAF4;
+  background-color: #A00000;
+  border-color: #A00000;
+}
+
 .btn-solid-spec {
   border: solid 1px #A00000;
   background-color: #A00000;

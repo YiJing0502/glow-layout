@@ -48,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in productsData">
+            <tr v-for="item in infoData">
               <th scope="row"><img :src="item.imageUrl" :alt="item.title" class="img-fluid" width="50"></th>
               <td>{{ item.category }}</td>
               <td>{{ item.title }}</td>
@@ -70,7 +70,18 @@
             </tr>
           </tbody>
         </table>
-        <p ref="scrollContainer">分頁器</p>
+        <div class="d-flex justify-content-center mt-4" ref="scrollContainer">
+          <nav aria-label="Page navigation example">
+            <ul class="pagination" id="pageid">
+              <prev-page-btn :is-enabled="pageData.hasPrevPage"
+                @change-page="pagination(pageData.currentPage - 1)"></prev-page-btn>
+              <page-btn v-for="item in pageData.totalPage" :key="item" :page="item" @change-page="pagination"
+                :current-page="pageData.currentPage"></page-btn>
+              <next-page-btn :is-enabled="pageData.hasNextPage"
+                @change-page="pagination(pageData.currentPage + 1)"></next-page-btn>
+            </ul>
+          </nav>
+        </div>
       </div>
     </div>
     <!-- Modal -->
@@ -125,13 +136,25 @@
                   <div class="row">
                     <div class="mb-3 col">
                       <label for="original_price" class="form-label">原價</label>
-                      <input type="text" class="form-control" id="original_price" placeholder="請輸入原價"
+                      <input type="number" class="form-control" id="original_price" placeholder="請輸入原價"
                         v-model.number="showData.origin_price">
                     </div>
                     <div class="mb-3 col">
                       <label for="price" class="form-label">售價</label>
-                      <input type="text" class="form-control" id="price" placeholder="請輸入售價"
+                      <input type="number" class="form-control" id="price" placeholder="請輸入售價"
                         v-model.number="showData.price">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="mb-3 col">
+                      <label for="cost_price" class="form-label">成本價</label>
+                      <input type="number" class="form-control" id="cost_price" placeholder="請輸入成本價"
+                        v-model.number="showData.cost_price">
+                    </div>
+                    <div class="mb-3 col">
+                      <label for="inventory" class="form-label">庫存量</label>
+                      <input type="number" class="form-control" id="inventory" placeholder="請輸入庫存量"
+                        v-model.number="showData.inventory">
                     </div>
                   </div>
                   <div class="row">
@@ -218,7 +241,7 @@
         </div>
       </div>
     </div>
-    <!-- 結果moddal -->
+    <!-- 結果modal -->
     <div class="modal fade" id="bsResultModal" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2"
       tabindex="-1">
       <div class="modal-dialog modal-dialog-centered">

@@ -40,3 +40,21 @@
   background-color: $deepGrayColor;
   border-color: $deepGrayColor;
 }
+// bs-page-link
+.page-link {
+  color: $deepGrayColor;
+  &:hover{
+    color: $specialMainColor;
+  }
+  &:focus{
+    box-shadow: none;
+
+  }
+}
+.active>.page-link, .page-link.active {
+  z-index: 3;
+  color: $lightMainColor;
+  background-color: $specialMainColor;
+  border-color: $specialMainColor;
+  
+}

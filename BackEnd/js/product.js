@@ -242,6 +242,7 @@ const app = createApp({
         success: true,
       },
       productsCategory: [],
+      searchInputValue: '',
     };
   },
   components:{
@@ -502,7 +503,7 @@ const app = createApp({
       // 使用scrollIntoView方法使元素滾動到可視區域的底部
       scrollContainer.scrollIntoView({ behavior: 'smooth', block: 'end' });
     },
-    // 取得最新 category
+    // fn,取得最新 category
     getCategory(){
       // 使用 Set 來確保類別的唯一性
       const uniqueCategories = new Set();
@@ -513,7 +514,7 @@ const app = createApp({
       // 轉換 Set 為陣列，然後將它設置到 data 中的 productsCategory
       this.productsCategory = Array.from(uniqueCategories);
     },
-    // 篩選 category
+    // fn,篩選 category
     filterCategory(category){
       this.paginationData = [];
       Object.keys(this.productsData).forEach((element, index)=>{
@@ -524,6 +525,19 @@ const app = createApp({
       });
       this.pagination(1);
     },
+    //fn, 搜尋
+    searchProduct(){
+      const newData = [];
+      const lowerCaseData = this.searchInputValue.toLowerCase();
+      console.log(lowerCaseData);
+      Object.keys(this.productsData).forEach(element => {
+        if(this.productsData[element].title.toLowerCase().match(lowerCaseData)){
+          newData.push(this.productsData[element]);
+        };
+      });
+      this.paginationData = newData;
+      this.pagination(1);
+    }
   },
   mounted() { // 在 Vue 實例掛載到 DOM 元素後執行程式碼
     // 取得先前儲存在 cookie 中 adminAccount 的值

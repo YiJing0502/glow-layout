@@ -89,6 +89,18 @@ body {
   border-color: #A00000;
 }
 
+.dropdown-toggle::after {
+  border-style: none;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #A00000;
+}
+
+.dropdown-menu {
+  border-color: #696969;
+}
+
 .btn-solid-spec {
   border: solid 1px #A00000;
   background-color: #A00000;

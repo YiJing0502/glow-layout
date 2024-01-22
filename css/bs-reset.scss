@@ -58,3 +58,13 @@
   border-color: $specialMainColor;
   
 }
+
+.dropdown-toggle::after {
+  border-style: none;
+}
+.dropdown-item.active, .dropdown-item:active{
+  background-color: $specialMainColor;
+}
+.dropdown-menu {
+  border-color: $deepGrayColor;
+}

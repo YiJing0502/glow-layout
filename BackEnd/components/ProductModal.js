@@ -1,10 +1,13 @@
 export default {
   methods: {
     uploadImages(){
-      this.$emit('upload-images')
+      this.$emit('upload-images', event);
     },
     addImage(){
       this.$emit('add-image');
+    },
+    deleteImage(index){
+      this.$emit('delete-image', index)
     },
     putAdminProduct(id){
       this.$emit('put-admin-product', id);
@@ -14,7 +17,7 @@ export default {
     }
   },
   props: ['showData', 'inEditProductMode'],
-  emits: ['upload-images', 'add-image', 'put-admin-product', 'post-admin-product'],
+  emits: ['upload-images','delete-image', 'add-image', 'put-admin-product', 'post-admin-product'],
   template: `<div class="modal fade" id="bsProductModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
   aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
@@ -128,8 +131,8 @@ export default {
                 <div class="card">
                   <div class="card-body">
                     <label for="formFile" class="form-label">上傳圖片檔案</label>
-                    <input class="form-control" type="file" ref="myImgUploadInput" @change="uploadImages"
-                      accept="image/jpeg, image/jpg, image/png" multiple>
+                    <input class="form-control" type="file" name="fileInput" @change="uploadImages"
+                     accept="image/jpeg, image/jpg, image/png" multiple>
                     <hr>
                     <button class="btn btn-solid-gray w-100" @click="addImage">手動新增圖片</button>
                   </div>

@@ -77,13 +77,15 @@ const app = createApp({
       };
     },
     // fn, 上傳多張圖片
-    uploadImages(){
+    uploadImages(event){
+      console.log(event.target.files);
+      console.log(this.$refs);
       const uploadServerMessage = {
         message: '',
         success: true,
       };
-      const fileInput = this.$refs.myImgUploadInput;
-      const multipleFilesArray = [...fileInput.files];
+      // const fileInput = this.$refs.myImgUploadInput;
+      const multipleFilesArray = [...event.target.files];
       // 驗證檔案大小、檔案類型
       for (let index = 0; index < multipleFilesArray.length; index++) {
         const element = multipleFilesArray[index];

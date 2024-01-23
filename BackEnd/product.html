@@ -62,7 +62,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in infoData">
+            <tr v-for="(item, index) in infoData" :key="index">
               <th scope="row"><img :src="item.imageUrl" :alt="item.title" class="img-fluid" width="50"></th>
               <td>{{ item.category }}</td>
               <td>{{ item.title }}</td>
@@ -100,8 +100,9 @@
     </div>
     <!-- Modal -->
     <!-- 產品編輯或新增 -->
-    <product-modal :show-data="showData" :in-edit-product-mode="inEditProductMode" @upload-images="uploadImages"
-      @add-image="addImage" @put-admin-product="putAdminProduct" @post-admin-product="postAdminProduct"></product-modal>
+    <product-modal :show-data="showData" :in-edit-product-mode="inEditProductMode" @delete-image="deleteImage"
+      @upload-images="uploadImages" @add-image="addImage" @put-admin-product="putAdminProduct"
+      @post-admin-product="postAdminProduct"></product-modal>
     <!-- 刪除產品 -->
     <delete-modal :show-data="showData" @delete-admin-product="deleteAdminProduct"></delete-modal>
     <!-- 結果modal -->

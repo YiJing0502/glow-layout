@@ -14,7 +14,44 @@
 <body>
   <div id="app">
     <div class="container">
-
+      <loading-animation></loading-animation>
+      <div>
+        <div class="row">
+          <div class="col d-flex justify-content-end">
+            <button type="button" class="btn btn-solid-spec">建立新的優惠券</button>
+          </div>
+        </div>
+        <status-message>{{'建立新的優惠券'}}</status-message>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">1</th>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>@mdo</td>
+            </tr>
+            <tr>
+              <th scope="row">2</th>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <th scope="row">3</th>
+              <td colspan="2">Larry the Bird</td>
+              <td>@twitter</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
   <!-- bootStrapJs -->

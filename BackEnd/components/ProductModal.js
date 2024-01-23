@@ -50,7 +50,10 @@ export default {
                   <div class="form-check mt-3">
                     <input type="checkbox" class="form-check-input" id="is_enabled" placeholder="請輸入標題"
                       :true-value="1" :false-value="0" v-model="showData.is_enabled">
-                    <label for="is_enabled" class="form-check-label">是否啟用</label>
+                    <label for="is_enabled" class="form-check-label">
+                      <span v-if="showData.is_enabled === 1" class="text-main-spec fw-bold">啟用</span>
+                      <span v-else class="text-deep-gray">未啟用</span>
+                    </label>
                   </div>
                 </div>
               </div>

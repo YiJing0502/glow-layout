@@ -78,8 +78,6 @@ const app = createApp({
     },
     // fn, 上傳多張圖片
     uploadImages(event){
-      console.log(event.target.files);
-      console.log(this.$refs);
       const uploadServerMessage = {
         message: '',
         success: true,

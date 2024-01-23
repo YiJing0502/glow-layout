@@ -68,7 +68,10 @@
               <td>{{ item.title }}</td>
               <td>{{ item.origin_price}}</td>
               <td>{{ item.price }}</td>
-              <td>{{ item.is_enabled === 1 ? '啟用' : '未啟用'}}</td>
+              <td>
+                <span v-if="item.is_enabled === 1" class="text-main-spec fw-bold">啟用</span>
+                <span v-else class="text-deep-gray">未啟用</span>
+              </td>
               <td>
                 <div class="d-flex justify-content-start align-items-center">
                   <button class="btn btn-sm resetBorderRadius btn-normal-medium block w-50 delProductModalBtn"

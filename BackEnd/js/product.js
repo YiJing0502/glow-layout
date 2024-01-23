@@ -7,6 +7,7 @@ import NextPageBtn from '../components/NextPageBtn.js';
 import DeleteModal from '../components/DeleteModal.js';
 import ResultModal from '../components/ResultModal.js';
 import ProductModal from '../components/ProductModal.js';
+import LoadingAnimation from '../components/LoadingAnimation.js';
 
 let myProductModal = null;
 let myDeleModal = null;
@@ -37,6 +38,7 @@ const app = createApp({
     DeleteModal,
     ResultModal,
     ProductModal,
+    LoadingAnimation,
   },
   methods: {
     // modal, 打開編輯產品modal

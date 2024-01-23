@@ -1,7 +1,7 @@
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.11/vue.esm-browser.min.js';
 import { baseUrl } from './config.js';
 import ResultModal from '../components/ResultModal.js';
-let myResultModal;
+let myResultModal = null;
 const app = createApp({
   data() {
     return {

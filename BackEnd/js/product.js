@@ -8,9 +8,9 @@ import DeleteModal from '../components/DeleteModal.js';
 import ResultModal from '../components/ResultModal.js';
 import ProductModal from '../components/ProductModal.js';
 
-let myProductModal;
-let myDeleModal;
-let myResultModal;
+let myProductModal = null;
+let myDeleModal = null;
+let myResultModal = null;
 
 const app = createApp({
   data() {
@@ -314,6 +314,12 @@ const app = createApp({
           newData.push(this.productsData[element]);
         };
       });
+      if(newData.length === 0){
+        console.log(newData.length);
+        this.serverMessage.message = '很抱歉，沒有符合搜尋條件的產品';
+        this.serverMessage.success = false;
+        myResultModal.show();
+      }
       this.paginationData = newData;
       this.pagination(1);
     }

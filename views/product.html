@@ -68,12 +68,12 @@
               </td>
               <td>
                 <div class="d-flex justify-content-start align-items-center">
-                  <button class="btn btn-sm resetBorderRadius btn-normal-medium block w-50 delProductModalBtn"
-                    type="button" @click="getAdminDelProductModal(item.id)">
+                  <button class="btn btn-sm btn-normal-medium block w-50" type="button"
+                    @click="getAdminDelProductModal(item.id)">
                     刪除
                   </button>
-                  <button class="btn btn-sm resetBorderRadius btn-normal-medium block w-50 productModalBtn"
-                    type="button" @click="getAdminProductModal(item.id)">
+                  <button class="btn btn-sm btn-normal-medium block w-50" type="button"
+                    @click="getAdminProductModal(item.id)">
                     編輯
                   </button>
                 </div>
@@ -105,12 +105,23 @@
     <!-- 結果modal -->
     <result-modal :server-message="serverMessage"></result-modal>
   </div>
+
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+  <!-- VueDemi，使用 Pinia 必要的相依套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.13.11/index.iife.js"></script>
+  <script>const I = VueDemi; const vueDemi = VueDemi;</script>
+
+  <!-- Pinia 網頁版，實戰中還是以 npm 為主，這是比較少見的使用方式 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pinia/2.0.28/pinia.iife.js"></script>
+
   <!-- bootStrapJs -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- axios -->
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <!-- 引入本地 product.js -->
-  <script src="./js/product.js" type="module"></script>
+  <script src="./product.js" type="module"></script>
 </body>
 
 </html>

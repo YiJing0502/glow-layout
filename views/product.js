@@ -14,6 +14,9 @@ let myProductModal = null;
 let myDeleModal = null;
 let myResultModal = null;
 
+const { createPinia } = Pinia;
+console.log(createPinia);
+
 const app = createApp({
   data() {
     return {
@@ -23,7 +26,6 @@ const app = createApp({
       infoData: [],
       showData: {},
       inEditProductMode: true,
-      inDeleProductMode: true,
       serverMessage: {
         message: '',
         success: true,
@@ -59,7 +61,6 @@ const app = createApp({
     },
     // modal, 打開刪除產品modal
     getAdminDelProductModal(id) {
-      this.inDeleProductMode = true;
       this.showData = JSON.parse(JSON.stringify(this.productsData[id]));
       myDeleModal.show();
     },
@@ -351,6 +352,7 @@ const app = createApp({
     myResultModal = new bootstrap.Modal(bsResultModal);
   },
 });
-
+const pinia = createPinia();
+app.use(pinia);
 app.mount('#app');
 

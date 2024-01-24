@@ -7,3 +7,12 @@ export const createResultModal = () => {
   
   return myResultModal;
 };
+
+export const createDeleteModal = () => {
+  // 獲取 bsDeleModal ＤＯＭ
+  const bsDeleModal = document.querySelector('#bsDeleModal');
+  // 建立 bootstrap modal 實體
+  const myDeleModal = new bootstrap.Modal(bsDeleModal);
+
+  return myDeleModal;
+};

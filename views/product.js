@@ -1,6 +1,7 @@
 console.clear();
 import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.4.11/vue.esm-browser.min.js';
 import { baseUrl, apiPath } from './config.js';
+// components
 import PageBtn from '../components/PageBtn.js';
 import PrevPageBtn from '../components/PrevPageBtn.js';
 import NextPageBtn from '../components/NextPageBtn.js';
@@ -9,8 +10,9 @@ import ResultModal from '../components/ResultModal.js';
 import ProductModal from '../components/ProductModal.js';
 import StatusMessage from '../components/StatusMessage.js';
 import LoadingAnimation from '../components/LoadingAnimation.js';
+
 import adminStore from '../stores/adminStore.js';
-import { createResultModal } from './modal.js'; 
+import { createResultModal, createDeleteModal } from './modal.js'; 
 
 let myProductModal = null;
 let myDeleModal = null;
@@ -21,6 +23,7 @@ const { createPinia, mapState, mapActions } = Pinia;
 const app = createApp({
   data() {
     return {
+      getRemoteData: false,
       productsData: [],
       paginationData: [],
       pageData: {},
@@ -148,6 +151,7 @@ const app = createApp({
       axios.get(url)
         .then((res)=>{
           if(res.data.success){
+            this.getRemoteData = res.data.success;
             this.productsData = res.data.products;
             this.paginationData = res.data.products;
             this.pagination(1);
@@ -336,16 +340,14 @@ const app = createApp({
           // 只有在使用者未登入時才重新導向
           window.location = 'login.html';
         }
-      })
+      });
     // 獲取 bsProductModal ＤＯＭ
     const bsProductModal = document.querySelector('#bsProductModal', {backdrop: 'static', keyboard: false});
     // 建立 bootstrap modal 實體
     myProductModal = new bootstrap.Modal(bsProductModal);
-    // 獲取 bsDeleModal ＤＯＭ
-    const bsDeleModal = document.querySelector('#bsDeleModal');
-    // 建立 bootstrap modal 實體
-    myDeleModal = new bootstrap.Modal(bsDeleModal);
+    
     // 在 mounted 階段生成共用 modal
+    myDeleModal = createDeleteModal();
     myResultModal = createResultModal();
 
   },

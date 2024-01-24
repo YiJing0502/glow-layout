@@ -14,7 +14,7 @@
 <body>
   <div id="app">
     <div class="container">
-      <loading-animation v-if="productsData.length===0"></loading-animation>
+      <loading-animation v-if="!getRemoteData"></loading-animation>
       <div v-else>
         <div class="row mt-4">
           <div class="col-8 d-flex">
@@ -42,8 +42,8 @@
             </button>
           </div>
         </div>
-        <status-message v-if="!productsData">{{'建立新的產品'}}</status-message>
-        <table class="table mt-4 align-middle" else>
+        <status-message v-if="productsData.length === 0">{{'建立新的產品'}}</status-message>
+        <table class="table mt-4 align-middle" v-else>
           <thead>
             <tr>
               <th scope="col">圖片</th>
@@ -101,7 +101,7 @@
       @upload-images="uploadImages" @add-image="addImage" @put-admin-product="putAdminProduct"
       @post-admin-product="postAdminProduct"></product-modal>
     <!-- 刪除產品 -->
-    <delete-modal :show-data="showData" @delete-admin-product="deleteAdminProduct"></delete-modal>
+    <delete-modal :show-data="showData" @delete-function="deleteAdminProduct"></delete-modal>
     <!-- 結果modal -->
     <result-modal :server-message="serverMessage"></result-modal>
   </div>

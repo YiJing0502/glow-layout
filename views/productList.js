@@ -21,7 +21,8 @@ const app = createApp({
         .catch(err=>{
           console.log('err', err);
         });
-    }
+    },
+    ...mapActions(productsStore, ['getProduct']),
   },
   computed(){
     

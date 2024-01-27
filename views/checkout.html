@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>checkout</title>
+  <!-- bootStrapCss -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <!-- googleMaterialIcon -->
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  <!-- localCss -->
+  <link rel="stylesheet" href="../css/main.css">
+</head>
+
+<body>
+  <div id="app">
+    <div class="container bg-main-medi rounded-10em mt-5 mb-5 px-5r py-7r">
+      <div class="row">
+        <div class="col">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <!-- 購物車 -->
+            <div class="accordion-item">
+              <!-- ShoppingCartSection -->
+              <h2 class="accordion-header" id="ShoppingCartSection">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#ShoppingCartDetails" aria-expanded="true" aria-controls="ShoppingCartDetails">
+                  購物車
+                </button>
+              </h2>
+              <!-- ShoppingCartDetails -->
+              <div id="ShoppingCartDetails" class="accordion-collapse collapse show"
+                aria-labelledby="ShoppingCartSection">
+                <div class="accordion-body">
+                  <div class="row">
+                    <div class="col-3 d-flex align-items-center">
+                      <img
+                        src="https://storage.googleapis.com/vue-course-api.appspot.com/orli-hexschool/1705394126679.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=gxT%2BTvBKSrttFoJj4kBcfPecRugk23ofPXXqgFeq%2F5IzS%2F6tBJS8QMKPCjdbDwEkeUpzTxAwkqkWoRqkYuU0GxsAzIu67NC7Ab07k2B%2BbRMYxhomDfx6Qso%2B9pvnTVG3twtQ%2FPKzXVyg79PHQd2TLraKYN8bkN8OPhmGFt5KRkMO31nIv6F%2FMhCpreqgzYKVLED8t6B1dmOHX7NLJA87g0wGfiaRHRxMc98a5QsDMRcpvslssqyyzAyio82ccllZgstirEQBk4brt3uaooswcTSmtoR%2BbnE5boPhhR3ji%2BzpUq0frhjyZWTEWF7k37xjn1a%2Fl8LQJ7AZie%2BkKEEWhA%3D%3D"
+                        alt="" class="img-fluid">
+                    </div>
+                    <div class="col-9">
+                      <div class="d-flex">
+                        <h6>HARMONY 愜意｜花香調｜Garden Harmony 愜意花園系列｜香氛蠟燭170g</h6>
+                        <button type="button" class="btn-close" aria-label="Close"></button>
+                      </div>
+
+                      <p>單價NT$ 1080 / 小計NT$ 1080 </p>
+                      <div class="d-flex">
+                        <div class="bg-white d-flex w-50 gap-3">
+                          <button type="button" class="btn btn-lg">-</button>
+                          <input type="number" class="form-control border-white shadow-none text-center">
+                          <button type="button" class="btn btn-lg">+</button>
+                        </div>
+                        <p class="d-flex align-items-end ms-3">目前庫存：9</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 訂單確認 -->
+            <div class="accordion-item">
+              <!-- OrderConfirmationSection -->
+              <h2 class="accordion-header" id="OrderConfirmationSection">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#OrderConfirmationDetails" aria-expanded="false"
+                  aria-controls="OrderConfirmationDetails">
+                  訂單確認
+                </button>
+              </h2>
+              <!-- OrderConfirmationDetails -->
+              <div id="OrderConfirmationDetails" class="accordion-collapse collapse"
+                aria-labelledby="OrderConfirmationSection">
+                <div class="accordion-body">
+                  <!-- 商品總金額 -->
+                  <div class="d-flex justify-content-between">
+                    <p>商品總金額</p>
+                    <p>NT$ 1080</p>
+                  </div>
+                  <!-- 運費 -->
+                  <div class="d-flex justify-content-between">
+                    <p>運費</p>
+                    <p>免運費</p>
+                  </div>
+                  <!-- 使用優惠代碼1 -->
+                  <div class="d-flex justify-content-between">
+                    <p>優惠代碼</p>
+                    <button type="button" class="btn btn-outline-gray">使用優惠代碼</button>
+                  </div>
+                  <!-- 使用優惠代碼2 -->
+                  <div class="mb-3">
+                    <p class="w-25">優惠代碼</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <input type="text" class="form-control" id="category" placeholder="請填入優惠代碼">
+                      <button type="button" class="w-25 btn btn-outline-gray">使用</button>
+                    </div>
+                  </div>
+                  <!-- 使用優惠代碼3 -->
+                  <div class="d-flex justify-content-between">
+                    <p>優惠</p>
+                    <p>-NT$ 116</p>
+                  </div>
+                  <hr>
+                  <!-- 總付款金額 -->
+                  <div class="d-flex justify-content-between">
+                    <p>總付款金額</p>
+                    <h4 class="text-end">NT$ 1160</h4>
+                  </div>
+                  <!-- 總付款金額2 -->
+                  <div class="">
+                    <div class="d-flex justify-content-between">
+                      <p>總付款金額</p>
+                      <p class="text-decoration-line-through">NT$ 1160</p>
+                    </div>
+                    <h4 class="text-end">NT$ 1160</h4>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- 聯絡我們 -->
+            <div class="accordion-item">
+              <!-- ContactUsSection -->
+              <h2 class="accordion-header" id="ContactUsSection">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#ContactUsDetails" aria-expanded="false" aria-controls="ContactUsDetails">
+                  聯絡我們
+                </button>
+              </h2>
+              <!-- ContactUsDetails -->
+              <div id="ContactUsDetails" class="accordion-collapse collapse" aria-labelledby="ContactUsSection">
+                <div class="accordion-body">
+                  <!-- 聯絡信箱 -->
+                  <div class="d-flex justify-content-between">
+                    <p>聯絡信箱</p>
+                    <p>glow.2023@gmail.com</p>
+                  </div>
+                  <!-- 聯絡電話 -->
+                  <div class="d-flex justify-content-between">
+                    <p>聯絡電話</p>
+                    <p>0988000999</p>
+                  </div>
+                  <!-- 營業時間 -->
+                  <div class="d-flex justify-content-between mb-3">
+                    <p>營業時間</p>
+                    <p>週一至週五 09:00~17:00</p>
+                  </div>
+                  <!-- 購物保證 -->
+                  <div class="row mb-3">
+                    <div class="col d-flex flex-column align-items-center">
+                      <span class="material-symbols-outlined fs-1 mb-3">
+                        local_shipping
+                      </span>
+                      <span>免費標準配送</span>
+                    </div>
+                    <div class="col d-flex flex-column align-items-center">
+                      <span class="material-symbols-outlined fs-1 mb-3">
+                        redeem
+                      </span>
+                      <span>七日內免費退貨</span>
+                    </div>
+                    <div class="col d-flex flex-column align-items-center">
+                      <span class="material-symbols-outlined fs-1 mb-3">
+                        encrypted
+                      </span>
+                      <span>安全購物</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <!-- 收件資料 -->
+            <div class="accordion-item">
+              <!-- RecipientInformationSection -->
+              <h2 class="accordion-header" id="RecipientInformationSection">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#RecipientInformationDetails" aria-expanded="true"
+                  aria-controls="RecipientInformationDetails">
+                  收件資料
+                </button>
+              </h2>
+              <!-- RecipientInformationDetails -->
+              <div id="RecipientInformationDetails" class="accordion-collapse collapse show"
+                aria-labelledby="RecipientInformationSection">
+                <div class="accordion-body">
+                  <!-- 收件人名稱 -->
+                  <div class="mb-3">
+                    <label for="category" class="form-label">收件人名稱</label>
+                    <input type="text" class="form-control" id="category" placeholder="請填入收件人真實姓名，以確保順利收件">
+                  </div>
+                  <!-- 電子信箱 -->
+                  <div class="mb-3">
+                    <label for="category" class="form-label">電子信箱</label>
+                    <input type="text" class="form-control" id="category" placeholder="請填入訂單通知Email (訂單資訊將以此E-mail通知您)">
+                  </div>
+                  <!-- 行動電話號碼 -->
+                  <div class="mb-3">
+                    <label for="category" class="form-label">行動電話號碼</label>
+                    <input type="text" class="form-control" id="category" placeholder="請填入收件人行動號碼 (供配送人員聯絡)">
+                  </div>
+                  <!-- 收件地址 -->
+                  <div class="mb-3">
+                    <label for="category" class="form-label">收件地址</label>
+                    <input type="text" class="form-control" id="category" placeholder="送貨地點目前僅提供：台灣、台灣外島宅配">
+                  </div>
+                  <!-- 訂單備註 -->
+                  <div class="mb-3">
+                    <label for="category" class="form-label">訂單備註</label>
+                    <input type="text" class="form-control" id="category" placeholder="管理室代收/電話聯絡時間...">
+                  </div>
+                  <!-- 注意事項 -->
+                  <div class="form-check mb-3">
+                    <input type="checkbox" class="form-check-input" id="is_enabled">
+                    <label for="is_enabled" class="form-check-label">
+                      <span class="text-main-spec fw-bold">我已確認以下內容：</span>
+                      <span><br>提醒您，送出訂單後，將無法修改訂單內容，並前往付款流程，請您確定無誤後再送出😄</span>
+                    </label>
+                  </div>
+                  <!-- 結帳按鈕 -->
+                  <div class="d-flex mb-3">
+                    <button type="button" class="btn btn-solid-spec w-100 btn-lg">結帳</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Vue CDN -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <!-- VueDemi，使用 Pinia 必要的相依套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.13.11/index.iife.js"></script>
+  <script>const I = VueDemi; const vueDemi = VueDemi;</script>
+  <!-- Pinia 網頁版，實戰中還是以 npm 為主，這是比較少見的使用方式 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pinia/2.0.28/pinia.iife.js"></script>
+  <!-- bootStrapJs -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- axios -->
+  <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  <!-- 引入本地 product.js -->
+  <script src="./checkout.js" type="module"></script>
+</body>
+
+</html>

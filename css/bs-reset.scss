@@ -77,3 +77,23 @@
   background-color: unset;
   border-width: 0;
 }
+
+// 手風琴
+.accordion-button {
+  background-color: $lightMainColor;
+}
+.accordion-button:not(.collapsed) {
+  color: var(--bs-accordion-active-color);
+  background-color: $lightMainColor;
+  box-shadow: none;
+  border: none;
+}
+.accordion-button:focus {
+  z-index: 3;
+  border: none;
+  outline: 0;
+  box-shadow: none;
+}
+.accordion-body {
+  background-color: $lightMainColor;
+}

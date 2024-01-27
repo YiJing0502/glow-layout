@@ -19,6 +19,10 @@
   background-color: #EBEAE4;
 }
 
+.fron-icon-xl {
+  font-size: 50px;
+}
+
 body {
   background-color: #FBFAF4;
   font-family: "Noto Serif TC", serif;
@@ -112,6 +116,28 @@ body {
 .card {
   background-color: unset;
   border-width: 0;
+}
+
+.accordion-button {
+  background-color: #FBFAF4;
+}
+
+.accordion-button:not(.collapsed) {
+  color: var(--bs-accordion-active-color);
+  background-color: #FBFAF4;
+  box-shadow: none;
+  border: none;
+}
+
+.accordion-button:focus {
+  z-index: 3;
+  border: none;
+  outline: 0;
+  box-shadow: none;
+}
+
+.accordion-body {
+  background-color: #FBFAF4;
 }
 
 .btn-solid-spec {

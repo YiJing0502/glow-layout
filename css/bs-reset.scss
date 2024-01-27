@@ -1,4 +1,7 @@
 // bs-
+.form-control{
+  border-radius: 0;
+}
 .form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
   background-color: $mediumMainColor;
 }
@@ -6,6 +9,9 @@
 .form-control:focus{
   border-color: $deepGrayColor;
   box-shadow: 0 0 0 0.25rem $whiteColor;
+}
+.form-check-input[type=checkbox] {
+  border-radius: 0;
 }
 // bs-checkbox 改動既有設定
 .form-check-input:checked {

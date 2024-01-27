@@ -19,7 +19,7 @@
         <div class="row mt-4">
           <div class="col-8 d-flex">
             <div class="btn-group me-3">
-              <button v-if="productsData" class="btn btn-normal-gray dropdown-toggle" type="button"
+              <button v-if="productsData" class="btn btn-normal-dpgray dropdown-toggle" type="button"
                 data-bs-toggle="dropdown" aria-expanded="false" @click="getCategory">
                 篩選類別
               </button>
@@ -33,7 +33,7 @@
             </div>
             <input class="form-control form-control-sm" id="exampleDataList" placeholder="輸入產品名稱搜尋"
               v-model.trim="searchInputValue" @keyup.enter="searchProduct">
-            <button class="btn btn-normal-gray" @click="searchProduct">搜</button>
+            <button class="btn btn-normal-dpgray" @click="searchProduct">搜</button>
           </div>
           <div class="col-4 d-flex justify-content-end">
             <button type="button" @click="scrollToBottom" class="btn">前往底部</button>

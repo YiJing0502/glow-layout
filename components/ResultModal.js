@@ -14,7 +14,7 @@ export default {
         {{ serverMessage.message }}
       </div>
       <div class="modal-footer">
-        <button class="btn btn-normal-gray" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">關閉</button>
+        <button class="btn btn-normal-dpgray" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">關閉</button>
       </div>
     </div>
   </div>

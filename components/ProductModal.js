@@ -136,7 +136,7 @@ export default {
                     <input class="form-control" type="file" name="fileInput" @change="uploadImages"
                      accept="image/jpeg, image/jpg, image/png" multiple>
                     <hr>
-                    <button class="btn btn-solid-gray w-100" @click="addImage">手動新增圖片</button>
+                    <button class="btn btn-solid-dpgray w-100" @click="addImage">手動新增圖片</button>
                   </div>
                 </div>
               </div>
@@ -146,7 +146,7 @@ export default {
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-normal-gray" data-bs-dismiss="modal">關閉</button>
+        <button type="button" class="btn btn-normal-dpgray" data-bs-dismiss="modal">關閉</button>
         <button type="button" class="btn btn-solid-spec"
           @click="inEditProductMode ? putAdminProduct(showData.id) : postAdminProduct()">{{inEditProductMode ? '更新'
           : '新增'}}</button>

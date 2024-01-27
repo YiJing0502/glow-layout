@@ -36,7 +36,7 @@
               <div id="ShoppingCartDetails" class="accordion-collapse collapse show"
                 aria-labelledby="ShoppingCartSection">
                 <div class="accordion-body">
-                  <div class="row">
+                  <div class="row mb-3">
                     <div class="col-3 d-flex align-items-center">
                       <img
                         src="https://storage.googleapis.com/vue-course-api.appspot.com/orli-hexschool/1705394126679.jpg?GoogleAccessId=firebase-adminsdk-zzty7%40vue-course-api.iam.gserviceaccount.com&Expires=1742169600&Signature=gxT%2BTvBKSrttFoJj4kBcfPecRugk23ofPXXqgFeq%2F5IzS%2F6tBJS8QMKPCjdbDwEkeUpzTxAwkqkWoRqkYuU0GxsAzIu67NC7Ab07k2B%2BbRMYxhomDfx6Qso%2B9pvnTVG3twtQ%2FPKzXVyg79PHQd2TLraKYN8bkN8OPhmGFt5KRkMO31nIv6F%2FMhCpreqgzYKVLED8t6B1dmOHX7NLJA87g0wGfiaRHRxMc98a5QsDMRcpvslssqyyzAyio82ccllZgstirEQBk4brt3uaooswcTSmtoR%2BbnE5boPhhR3ji%2BzpUq0frhjyZWTEWF7k37xjn1a%2Fl8LQJ7AZie%2BkKEEWhA%3D%3D"
@@ -50,7 +50,7 @@
 
                       <p>單價NT$ 1080 / 小計NT$ 1080 </p>
                       <div class="d-flex">
-                        <div class="bg-white d-flex w-50 gap-3">
+                        <div class="bg-white d-flex w-50 gap-3 border">
                           <button type="button" class="btn btn-lg">-</button>
                           <input type="number" class="form-control border-white shadow-none text-center">
                           <button type="button" class="btn btn-lg">+</button>
@@ -58,6 +58,10 @@
                         <p class="d-flex align-items-end ms-3">目前庫存：9</p>
                       </div>
                     </div>
+                  </div>
+                  <!-- 清空購物車按鈕 -->
+                  <div class="d-flex mb-3">
+                    <button type="button" class="btn btn-outline-mdgray w-100">清空購物車</button>
                   </div>
                 </div>
               </div>
@@ -89,14 +93,14 @@
                   <!-- 使用優惠代碼1 -->
                   <div class="d-flex justify-content-between">
                     <p>優惠代碼</p>
-                    <button type="button" class="btn btn-outline-gray">使用優惠代碼</button>
+                    <button type="button" class="btn btn-outline-dpgray">使用優惠代碼</button>
                   </div>
                   <!-- 使用優惠代碼2 -->
                   <div class="mb-3">
                     <p class="w-25">優惠代碼</p>
                     <div class="d-flex justify-content-between align-items-center">
                       <input type="text" class="form-control" id="category" placeholder="請填入優惠代碼">
-                      <button type="button" class="w-25 btn btn-outline-gray">使用</button>
+                      <button type="button" class="w-25 btn btn-outline-dpgray ms-3">使用</button>
                     </div>
                   </div>
                   <!-- 使用優惠代碼3 -->

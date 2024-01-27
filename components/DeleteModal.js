@@ -20,7 +20,7 @@ export default {
         <p>刪除後將無法恢復</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-normal-gray" data-bs-dismiss="modal">關閉</button>
+        <button type="button" class="btn btn-normal-dpgray" data-bs-dismiss="modal">關閉</button>
         <button type="button" class="btn btn-normal-spec" @click="deleteCheck">刪除</button>
       </div>
     </div>

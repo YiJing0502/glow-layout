@@ -8,6 +8,7 @@ import QuantityControlBtns from '../components/QuantityControlBtns.js';
 const app = createApp({
   data() {
     return {
+      
       useCoupon: false,
       couponCode: '',
     }
@@ -22,12 +23,13 @@ const app = createApp({
     },
     goToPostCoupon(){
       console.log(this.couponCode);
+      this.useCoupon = false;
       this.postCoupon(this.couponCode);
     },
     ...mapActions(cartsStore, ['getCart', 'putCart', 'deleteCart', 'deleteCarts', 'postCoupon'])
   },
   computed: {
-    ...mapState(cartsStore, ['isLoading', 'cartsData', 'total'])
+    ...mapState(cartsStore, ['isLoading', 'cartsData', 'successfullyUseCoupon', 'allCartsData'])
   },
   mounted() {
     this.getCart();

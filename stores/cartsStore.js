@@ -4,10 +4,15 @@ import { baseUrl, apiPath } from '../views/config.js';
 
 export default defineStore('cartsStore', {
   state: ()=>({
-    // 購物車資料
-    isLoading: false,
+    // 購物車產品資料
     cartsData: [],
+    // 總購物車資料
+    allCartsData: [],
+    isLoading: false,
     total: 0,
+    finalTotal: 0,
+    
+    successfullyUseCoupon: false,
   }),
   getters: {
 
@@ -20,11 +25,16 @@ export default defineStore('cartsStore', {
       axios.get(url)
         .then(res=>{
           // 購物車資料
-          this.cartsData = res.data.data.carts;
-          // 總金額
-          this.total = res.data.data.total;
-          console.log(res.data.data);
+          this.cartsData = [...res.data.data.carts];
+          this.allCartsData = {...res.data.data};
           this.isLoading = false;
+          if(this.allCartsData.total !== this.allCartsData.final_total) {
+            this.allCartsData.useCoupon = true;
+          }else{
+            this.allCartsData.useCoupon = false;
+          }
+          console.log('res.data.data', res.data.data);
+          console.log(this.allCartsData);
         })
         .catch(err=>{
           console.log('err', err);

@@ -42,24 +42,29 @@
               <div id="ShoppingCartDetails" class="accordion-collapse collapse show"
                 aria-labelledby="ShoppingCartSection">
                 <div class="accordion-body">
-                  <div class="row mb-3" v-for="item in cartsData" :key="item.id">
-                    <div class="col-3 d-flex align-items-center">
-                      <img :src="item.product.imageUrl" :alt="item.product.title" class="img-fluid">
-                    </div>
-                    <div class="col-9">
-                      <div class="d-flex">
-                        <h6>{{item.product.title}}</h6>
-                        <button type="button" class="btn-close" aria-label="Close"></button>
-                      </div>
-
-                      <p>單價NT$ {{item.product.price}} / 小計NT$ {{item.final_total}} </p>
-                      <quantity-control-btns :inventory="item.product.inventory" :id="item.product_id" :qty="item.qty"
-                        :product-cart-id="item.id" @put-num="putCart"></quantity-control-btns>
-                    </div>
+                  <div class="" v-if="cartsData.length === 0">
+                    目前購物車內沒有商品
                   </div>
-                  <!-- 清空購物車按鈕 -->
-                  <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-outline-mdgray w-100">清空購物車</button>
+                  <div v-else class="">
+                    <div class="row mb-3" v-for="item in cartsData" :key="item.id">
+                      <div class="col-3 d-flex align-items-center">
+                        <img :src="item.product.imageUrl" :alt="item.product.title" class="img-fluid">
+                      </div>
+                      <div class="col-9">
+                        <div class="d-flex">
+                          <h6>{{item.product.title}}</h6>
+                          <button type="button" class="btn-close" aria-label="Close"
+                            @click="deleteCart(item.id)"></button>
+                        </div>
+                        <p>單價NT$ {{item.product.price}} / 小計NT$ {{item.final_total}} </p>
+                        <quantity-control-btns :inventory="item.product.inventory" :id="item.product_id" :qty="item.qty"
+                          :product-cart-id="item.id" @put-num="putCart"></quantity-control-btns>
+                      </div>
+                    </div>
+                    <!-- 清空購物車按鈕 -->
+                    <div class="d-flex mb-3">
+                      <button type="button" class="btn btn-outline-mdgray w-100" @click="deleteCarts">清空購物車</button>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -81,7 +86,7 @@
                   <!-- 商品總金額 -->
                   <div class="d-flex justify-content-between">
                     <p>商品總金額</p>
-                    <p>NT$ 1080</p>
+                    <p>NT$ {{ total }}</p>
                   </div>
                   <!-- 運費 -->
                   <div class="d-flex justify-content-between">
@@ -89,16 +94,16 @@
                     <p>免運費</p>
                   </div>
                   <!-- 使用優惠代碼1 -->
-                  <div class="d-flex justify-content-between">
+                  <div class="d-flex justify-content-between" v-if="!useCoupon">
                     <p>優惠代碼</p>
-                    <button type="button" class="btn btn-outline-dpgray">使用優惠代碼</button>
+                    <button type="button" class="btn btn-outline-dpgray" @click="useCoupon = true">使用優惠代碼</button>
                   </div>
                   <!-- 使用優惠代碼2 -->
-                  <div class="mb-3">
+                  <div class="mb-3" v-else-if="useCoupon">
                     <p class="w-25">優惠代碼</p>
                     <div class="d-flex justify-content-between align-items-center">
-                      <input type="text" class="form-control" id="category" placeholder="請填入優惠代碼">
-                      <button type="button" class="w-25 btn btn-outline-dpgray ms-3">使用</button>
+                      <input type="text" class="form-control" id="category" placeholder="請填入優惠代碼" v-model="couponCode">
+                      <button type="button" class="w-25 btn btn-outline-dpgray ms-3" @click="goToPostCoupon">使用</button>
                     </div>
                   </div>
                   <!-- 使用優惠代碼3 -->

@@ -5,8 +5,9 @@ import { baseUrl, apiPath } from '../views/config.js';
 export default defineStore('cartsStore', {
   state: ()=>({
     // 購物車資料
-    cartsData: [],
     isLoading: false,
+    cartsData: [],
+    total: 0,
   }),
   getters: {
 
@@ -21,7 +22,8 @@ export default defineStore('cartsStore', {
           // 購物車資料
           this.cartsData = res.data.data.carts;
           // 總金額
-          console.log(this.cartsData);
+          this.total = res.data.data.total;
+          console.log(res.data.data);
           this.isLoading = false;
         })
         .catch(err=>{
@@ -65,5 +67,48 @@ export default defineStore('cartsStore', {
           console.log('err', err);
         })
     },
+    // 刪除購物車商品方法
+    deleteCart(productCartId){
+      const url = `${baseUrl}/v2/api/${apiPath}/cart/${productCartId}`;
+      axios.delete(url)
+        .then(res=>{
+          console.log('res', res);
+          this.getCart();
+        })
+        .catch(err=>{
+          console.log('err', err);
+        })
+    },
+    // 刪除全部購物車方法
+    deleteCarts(){
+      const url = `${baseUrl}/v2/api/${apiPath}/carts`;
+      axios.delete(url)
+        .then(res=>{
+          console.log('res', res);
+          this.getCart();
+        })
+        .catch(err=>{
+          console.log('err', err);
+        })
+        
+    },
+    // 使用優惠券方法
+    postCoupon(code){
+      console.log(code);
+      const url = `${baseUrl}/v2/api/${apiPath}/coupon`;
+      const data = {
+        "data": {
+          "code": code,
+        }
+      };
+      axios.post(url, data)
+      .then(res=>{
+        console.log('res', res);
+        this.getCart();
+      })
+      .catch(err=>{
+        console.log('err', err);
+      })
+    }
   },
 });

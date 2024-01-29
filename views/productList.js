@@ -7,25 +7,25 @@ import productsStore from '../stores/productsStore.js';
 const app = createApp({
   data() {
     return {
-      productsData: [],
+      // productsData: [],
     }
   },
   methods: {
-    getProductsAll() {
-      const url = `${baseUrl}/v2/api/${apiPath}/products/all`;
-      axios.get(url)
-        .then(res=>{
-          this.productsData = res.data.products;
-          console.log('res', this.productsData);
-        })
-        .catch(err=>{
-          console.log('err', err);
-        });
-    },
-    ...mapActions(productsStore, ['getProduct']),
+    // getProductsAll() {
+    //   const url = `${baseUrl}/v2/api/${apiPath}/products/all`;
+    //   axios.get(url)
+    //     .then(res=>{
+    //       this.productsData = res.data.products;
+    //       console.log('res', this.productsData);
+    //     })
+    //     .catch(err=>{
+    //       console.log('err', err);
+    //     });
+    // },
+    ...mapActions(productsStore, ['getProductsAll', 'getProduct', 'changeToProductPage']),
   },
-  computed(){
-    
+  computed: {
+    ...mapState(productsStore, ['productsData']),
   },
   mounted() {
     this.getProductsAll();

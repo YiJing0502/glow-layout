@@ -8,37 +8,19 @@ import productsStore from '../stores/productsStore.js';
 const app = createApp({
   data() {
     return {
-      isLoading: false,
-      showData: {},
+      // isLoading: false,
+      // showData: {},
 
     }
   },
   computed: {
-    // ...mapState(productsStore, ['', '']),
+    ...mapState(productsStore, ['isLoading', 'showData',]),
   },
   methods: {
-    getProduct(id) {
-      console.log(id);
-      this.isLoading = true;
-      const url = `${baseUrl}/v2/api/${apiPath}/product/${id}`;
-      axios.get(url)
-        .then(res=>{
-          this.showData = {...res.data.product};
-          this.showData.content = this.textChanger(this.showData.content);
-          this.isLoading = false;
-          console.log(this.showData);
-        })
-        .catch(err=>{
-          console.log('err', err);
-        })
-    },
-    textChanger(str){
-      return str.split('\n')
-    },
-    // ...mapActions(productsStore, ['',])
+    ...mapActions(productsStore, ['getProduct',])
   },
   mounted() {
-    this.getProduct('-NoLRz5ol1emgz6xq7j0')
+    this.getProduct()
   },
 });
 

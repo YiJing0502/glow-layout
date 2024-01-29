@@ -54,16 +54,17 @@
             <!-- 購物車增減按鈕與庫存 -->
             <div class="d-flex">
               <div class="bg-white d-flex w-50 mb-3 gap-3 border">
-                <button type="button" class="btn btn-lg">-</button>
-                <input type="number" class="form-control border-white shadow-none text-center" :max="showData.inventory"
-                  :min="1">
-                <button type="button" class="btn btn-lg">+</button>
+                <button type="button" class="btn btn-lg" @click="minusNum">-</button>
+                <input type="number" class="form-control border-white shadow-none text-center"
+                  v-model.number="currentNum" @input="inputNum">
+                <button type="button" class="btn btn-lg" @click="plusNum">+</button>
               </div>
               <p class="d-flex align-items-end ms-3">目前庫存：{{ showData.inventory }}</p>
             </div>
             <!-- 加入購物車 -->
             <div class="d-flex mb-3">
-              <button type="button" class="btn btn-solid-spec w-100 btn-lg">加入購物車</button>
+              <button type="button" class="btn btn-solid-spec w-100 btn-lg"
+                @click="postCart(showData.id, currentNum)">加入購物車</button>
             </div>
             <hr>
             <!-- 手風琴組 -->

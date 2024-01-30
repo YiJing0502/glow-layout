@@ -48,6 +48,7 @@ export default defineStore('cartsStore', {
       axios.post(url, data)
         .then(res=>{
           console.log('res', res);
+          this.getCart();
         })
         .catch(err=>{
           console.log('err', err);

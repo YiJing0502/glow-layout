@@ -49,8 +49,6 @@
                     <div class="col-9">
                       <div class="d-flex">
                         <h6>{{item.product.title}}</h6>
-                        <button type="button" class="btn-close" aria-label="Close"
-                          @click="deleteCart(item.id)"></button>
                       </div>
                       <p>單價NT$ {{ parseInt(item.product.price) }} / 小計NT$ {{ parseInt(item.total) }} <span
                           v-if="item.final_total !== item.total">/ 優惠價NT$ {{ parseInt(item.final_total) }} </span></p>

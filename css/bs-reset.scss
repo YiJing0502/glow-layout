@@ -87,9 +87,10 @@
 // 手風琴
 .accordion-button {
   background-color: $lightMainColor;
+  color: $deepGrayColor;
 }
 .accordion-button:not(.collapsed) {
-  color: var(--bs-accordion-active-color);
+  color: $deepGrayColor;
   background-color: $lightMainColor;
   box-shadow: none;
   border: none;

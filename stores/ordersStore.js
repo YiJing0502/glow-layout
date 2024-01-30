@@ -1,11 +1,12 @@
 const { defineStore } = Pinia;
 import stringStore from './stringStore.js';
+import timeStore from './timeStore.js';
 import { baseUrl, apiPath } from '../views/config.js';
 export default defineStore('ordersStore', {
   state: ()=>({
     // 是否為載入中
     isLoading: false,
-    // 訂單資料
+    // 訂單總資料
     showData: {},
     userData: {},
     productData: [],
@@ -55,6 +56,9 @@ export default defineStore('ordersStore', {
           total,
           message,
         };
+        const { timestamp10CodeToDay } = timeStore();
+        this.showData.create_at = timestamp10CodeToDay(create_at);
+        this.showData.paid_date = timestamp10CodeToDay(paid_date);
         // 重新整理訂單備註
         const { splitStringByNewline } = stringStore();
         this.showData.message = splitStringByNewline(this.showData.message);
@@ -99,7 +103,7 @@ export default defineStore('ordersStore', {
       .then(res=>{
         console.log('res', res);
         this.payData = res.data;
-        getOrder();
+        this.getOrder();
         this.isLoading = false;
       })
       .catch(err=>{

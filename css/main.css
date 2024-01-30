@@ -132,10 +132,11 @@ body {
 
 .accordion-button {
   background-color: #FBFAF4;
+  color: #52504B;
 }
 
 .accordion-button:not(.collapsed) {
-  color: var(--bs-accordion-active-color);
+  color: #52504B;
   background-color: #FBFAF4;
   box-shadow: none;
   border: none;

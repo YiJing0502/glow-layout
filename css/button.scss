@@ -32,7 +32,7 @@
 // 深灰實心按鈕
 .btn-solid-dpgray {
   border: solid 1px $deepGrayColor;
-  background-color: $deepGrayColor;
+  background-color: darken($deepGrayColor, 5%);;
   color: $lightMainColor;
   border-radius: 0;
   &:hover{

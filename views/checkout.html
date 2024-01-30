@@ -56,7 +56,8 @@
                           <button type="button" class="btn-close" aria-label="Close"
                             @click="deleteCart(item.id)"></button>
                         </div>
-                        <p>單價NT$ {{item.product.price}} / 小計NT$ {{item.final_total}} </p>
+                        <p>單價NT$ {{ parseInt(item.product.price) }} / 小計NT$ {{ parseInt(item.total) }} <span
+                            v-if="item.final_total !== item.total">/ 優惠價NT$ {{ parseInt(item.final_total) }} </span></p>
                         <quantity-control-btns :inventory="item.product.inventory" :id="item.product_id" :qty="item.qty"
                           :product-cart-id="item.id" @put-num="putCart"></quantity-control-btns>
                       </div>
@@ -70,7 +71,7 @@
               </div>
             </div>
             <!-- 訂單確認 -->
-            <div class="accordion-item">
+            <div class="accordion-item" v-if="cartsData.length !== 0">
               <!-- OrderConfirmationSection -->
               <h2 class="accordion-header" id="OrderConfirmationSection">
                 <button class="accordion-button fs-5 fw-semibold collapsed" type="button" data-bs-toggle="collapse"
@@ -86,44 +87,50 @@
                   <!-- 商品總金額 -->
                   <div class="d-flex justify-content-between">
                     <p>商品總金額</p>
-                    <p>NT$ {{ allCartsData.total }}</p>
+                    <p>NT$ {{ parseInt(allCartsData.total) }}</p>
                   </div>
                   <!-- 運費 -->
                   <div class="d-flex justify-content-between">
                     <p>運費</p>
                     <p>免運費</p>
                   </div>
-                  <!-- 使用優惠代碼1 -->
-                  <div class="d-flex justify-content-between" v-if="!useCoupon">
-                    <p>優惠代碼</p>
-                    <button type="button" class="btn btn-outline-dpgray" @click="useCoupon = true">使用優惠代碼</button>
-                  </div>
-                  <!-- 使用優惠代碼2 -->
-                  <div class="mb-3" v-else-if="useCoupon">
-                    <p class="w-25">優惠代碼</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                      <input type="text" class="form-control" id="category" placeholder="請填入優惠代碼" v-model="couponCode">
-                      <button type="button" class="w-25 btn btn-outline-dpgray ms-3" @click="goToPostCoupon">使用</button>
+                  <div v-if="!allCartsData.useCoupon">
+                    <!-- 使用優惠代碼1 -->
+                    <div class="d-flex justify-content-between" v-if="!useCoupon">
+                      <p>優惠代碼</p>
+                      <button type="button" class="btn btn-outline-dpgray" @click="useCoupon = true">使用優惠代碼</button>
+                    </div>
+                    <!-- 使用優惠代碼2 -->
+                    <div class="mb-3" v-else-if="useCoupon">
+                      <p class="w-25">優惠代碼</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <input type="text" class="form-control" id="category" placeholder="請填入優惠代碼"
+                          v-model="couponCode">
+                        <button type="button" class="w-25 btn btn-outline-dpgray ms-3"
+                          @click="goToPostCoupon">使用</button>
+                        <button type="button" class="w-25 btn btn-outline-dpgray ms-3"
+                          @click="useCoupon = false">取消</button>
+                      </div>
                     </div>
                   </div>
                   <!-- 使用優惠代碼3 -->
-                  <div class="d-flex justify-content-between" v-if="successfullyUseCoupon">
-                    <p>優惠</p>
-                    <p>-NT$ 116</p>
+                  <div class="d-flex justify-content-between" v-if="allCartsData.useCoupon">
+                    <p>使用優惠券</p>
+                    <p>優惠 NT$ {{ parseInt(allCartsData.total) - parseInt(allCartsData.final_total) }}</p>
                   </div>
                   <hr>
                   <!-- 總付款金額 -->
                   <div class="d-flex justify-content-between" v-if="!allCartsData.useCoupon">
                     <p>總付款金額</p>
-                    <h4 class="text-end">NT$ 1160</h4>
+                    <h4 class="text-end">NT$ {{ parseInt(allCartsData.total) }}</h4>
                   </div>
                   <!-- 總付款金額2 -->
                   <div class="" v-else-if="allCartsData.useCoupon">
                     <div class="d-flex justify-content-between">
                       <p>總付款金額</p>
-                      <p class="text-decoration-line-through">NT$ {{ allCartsData.total }}</p>
+                      <h5 class="text-decoration-line-through">NT$ {{ parseInt(allCartsData.total) }}</h5>
                     </div>
-                    <h4 class="text-end">NT$ {{ allCartsData.final_total }}</h4>
+                    <h4 class="text-end">NT$ {{ parseInt(allCartsData.final_total) }}</h4>
                   </div>
                 </div>
               </div>
@@ -133,8 +140,59 @@
         <!-- 詳細內容右 -->
         <div class="col">
           <div class="accordion" id="accordionPanelsStayOpenExample">
+            <!-- 聯絡我們 -->
+            <div class="accordion-item" v-if="cartsData.length === 0">
+              <!-- ContactUsSection -->
+              <h2 class="accordion-header" id="ContactUsSection">
+                <button class="accordion-button collapsed fs-5 fw-semibold" type="button" data-bs-toggle="collapse"
+                  data-bs-target="#ContactUsDetails" aria-expanded="false" aria-controls="ContactUsDetails">
+                  聯絡我們
+                </button>
+              </h2>
+              <!-- ContactUsDetails -->
+              <div id="ContactUsDetails" class="accordion-collapse collapse show" aria-labelledby="ContactUsSection">
+                <div class="accordion-body">
+                  <!-- 聯絡信箱 -->
+                  <div class="d-flex justify-content-between">
+                    <p>聯絡信箱</p>
+                    <p>glow.2023@gmail.com</p>
+                  </div>
+                  <!-- 聯絡電話 -->
+                  <div class="d-flex justify-content-between">
+                    <p>聯絡電話</p>
+                    <p>0988000999</p>
+                  </div>
+                  <!-- 營業時間 -->
+                  <div class="d-flex justify-content-between mb-3">
+                    <p>營業時間</p>
+                    <p>週一至週五 09:00~17:00</p>
+                  </div>
+                  <!-- 購物保證 -->
+                  <div class="row mb-3">
+                    <div class="col d-flex flex-column align-items-center">
+                      <span class="material-symbols-outlined fs-1 mb-3">
+                        local_shipping
+                      </span>
+                      <span>免費標準配送</span>
+                    </div>
+                    <div class="col d-flex flex-column align-items-center">
+                      <span class="material-symbols-outlined fs-1 mb-3">
+                        redeem
+                      </span>
+                      <span>七日內免費退貨</span>
+                    </div>
+                    <div class="col d-flex flex-column align-items-center">
+                      <span class="material-symbols-outlined fs-1 mb-3">
+                        encrypted
+                      </span>
+                      <span>安全購物</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!-- 收件資料 -->
-            <div class="accordion-item">
+            <div class="accordion-item" v-if="cartsData.length !== 0">
               <!-- RecipientInformationSection -->
               <h2 class="accordion-header" id="RecipientInformationSection">
                 <button class="accordion-button fs-5 fw-semibold" type="button" data-bs-toggle="collapse"
@@ -150,31 +208,36 @@
                   <!-- 收件人名稱 -->
                   <div class="mb-3">
                     <label for="category" class="form-label">收件人名稱</label>
-                    <input type="text" class="form-control" id="category" placeholder="請填入收件人真實姓名，以確保順利收件">
+                    <input type="text" class="form-control" id="category" placeholder="請填入收件人真實姓名，以確保順利收件"
+                      v-model="orderData.data.user.name">
                   </div>
                   <!-- 電子信箱 -->
                   <div class="mb-3">
                     <label for="category" class="form-label">電子信箱</label>
-                    <input type="text" class="form-control" id="category" placeholder="請填入訂單通知Email (訂單資訊將以此E-mail通知您)">
+                    <input type="text" class="form-control" id="category" placeholder="請填入訂單通知Email (訂單資訊將以此E-mail通知您)"
+                      v-model="orderData.data.user.email">
                   </div>
                   <!-- 行動電話號碼 -->
                   <div class="mb-3">
                     <label for="category" class="form-label">行動電話號碼</label>
-                    <input type="text" class="form-control" id="category" placeholder="請填入收件人行動號碼 (供配送人員聯絡)">
+                    <input type="text" class="form-control" id="category" placeholder="請填入收件人行動號碼 (供配送人員聯絡)"
+                      v-model="orderData.data.user.tel">
                   </div>
                   <!-- 收件地址 -->
                   <div class="mb-3">
                     <label for="category" class="form-label">收件地址</label>
-                    <input type="text" class="form-control" id="category" placeholder="送貨地點目前僅提供：台灣、台灣外島宅配">
+                    <input type="text" class="form-control" id="category" placeholder="送貨地點目前僅提供：台灣、台灣外島宅配"
+                      v-model="orderData.data.user.address">
                   </div>
                   <!-- 訂單備註 -->
                   <div class="mb-3">
-                    <label for="category" class="form-label">訂單備註</label>
-                    <input type="text" class="form-control" id="category" placeholder="管理室代收/電話聯絡時間...">
+                    <p>訂單備註</p>
+                    <textarea class="w-100 form-control" id="orderMessage" name="orderMessage" rows="5"
+                      placeholder="管理室代收/電話聯絡時間..." v-model="orderData.data.message"></textarea>
                   </div>
                   <!-- 注意事項 -->
                   <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="is_enabled">
+                    <input type="checkbox" class="form-check-input" id="is_enabled" v-model="checkOrderInfo">
                     <label for="is_enabled" class="form-check-label">
                       <span class="text-main-spec fw-bold">我已確認以下內容：</span>
                       <span><br>提醒您，送出訂單後，將無法修改訂單內容，並前往付款流程，請您確定無誤後再送出😄</span>
@@ -187,8 +250,11 @@
                   </div>
                   <!-- 結帳按鈕 -->
                   <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-solid-spec w-100 btn-lg">結帳</button>
+                    <button type="button" class="btn btn-solid-spec w-100 btn-lg" :disabled="!checkOrderInfo"
+                      @click="postOrder(orderData)">結帳</button>
                   </div>
+                  {{ orderData }}
+                  checkOrderInfo：{{ checkOrderInfo }}
                 </div>
               </div>
             </div>

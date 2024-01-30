@@ -16,10 +16,14 @@
 
 <body>
   <div id="app">
-    <div class="container bg-main-medi rounded-10em mt-5 mb-5 px-5r py-7r">
+    <div v-if="isLoading">
+      載入中...
+    </div>
+    <div v-else class="container bg-main-medi rounded-10em mt-5 mb-5 px-5r py-7r">
       <!-- 大標題 -->
       <div class="d-flex align-items-center justify-content-center mb-3">
-        <h2 class="text-center border-bottom border-secondary pb-2 w-50">訂單已建立！請點擊按鈕付款</h2>
+        <h2 v-if="!showData.is_paid" class="text-center border-bottom border-secondary pb-2 w-50">訂單已建立！請點擊按鈕付款</h2>
+        <h2 v-else class="text-center border-bottom border-secondary pb-2 w-50">感謝您的購買，已完成訂購！</h2>
       </div>
       <!-- 詳細內容 -->
       <div class="row">
@@ -99,25 +103,34 @@
                   <!-- 訂單編號 -->
                   <div class="d-flex justify-content-between">
                     <p>訂單編號</p>
-                    <p>-2389rjidsjki</p>
+                    <p>{{ showData.id }}</p>
                   </div>
                   <!-- 建立時間 -->
                   <div class="d-flex justify-content-between">
                     <p>建立時間</p>
-                    <p>2024年01月11日</p>
+                    <p>{{ showData.create_at }}</p>
                   </div>
                   <!-- 總金額 -->
                   <div class="d-flex justify-content-between">
                     <p>總金額</p>
-                    <p>NT$ 1040</p>
+                    <p>NT$ {{ parseInt(showData.total) }}</p>
                   </div>
-                  <div class="bg-medium-gray text-deep-gray px-3 py-2 mb-3">
+                  <div v-if="!showData.is_paid" class="bg-medium-gray text-deep-gray px-3 py-2 mb-3">
                     <h6>修改訂單問題？</h6>
                     <span>若您於已下單後想修改您的訂單，請您先不要付款，請先聯絡客服人員修改您的訂單後，再搜尋您的訂單前往付款😄</span>
                   </div>
+                  <div v-else class="bg-medium-gray text-deep-gray px-3 py-2 mb-3">
+                    <h6>到貨時間？</h6>
+                    <span>在確認收到您訂單和款項之後我們約有1~2天備貨期，您最多可以指定3天後作為預期收到貨的日期。 實際依照網站出貨及物流業者的配送時間為準。</span>
+                  </div>
                   <!-- 點我付款按鈕 -->
-                  <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-solid-spec w-100 btn-lg">點我付款</button>
+                  <div v-if="!showData.is_paid" class="d-flex mb-3">
+                    <button type="button" class="btn btn-solid-spec w-100 btn-lg"
+                      @click="postPayOrder(showData.id)">點我付款</button>
+                  </div>
+                  <div v-else class="d-flex mb-3">
+                    <button type="button" class="btn btn-solid-dpgray w-100 btn-lg"
+                      @click="changeToIdPage(showData.id, 'orderDetail.html')">點擊查看此筆訂單</button>
                   </div>
                 </div>
               </div>

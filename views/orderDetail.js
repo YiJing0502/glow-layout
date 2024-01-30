@@ -1,7 +1,6 @@
 console.clear();
 const { createApp } = Vue;
 const { createPinia, mapActions, mapState } = Pinia;
-import cartsStore from '../stores/cartsStore.js';
 import ordersStore from '../stores/ordersStore.js';
 // 元件
 import QuantityControlBtns from '../components/QuantityControlBtns.js';
@@ -33,23 +32,13 @@ const app = createApp({
     QuantityControlBtns,
   },
   methods: {
-    goToPutCart(productCartId,productId,qty){
-      console.log('goToPostCart',productCartId,productId,qty);
-      this.putCart(productCartId,productId,qty)
-    },
-    goToPostCoupon(){
-      console.log(this.couponCode);
-      // this.useCoupon = false;
-      this.postCoupon(this.couponCode);
-    },
-    ...mapActions(cartsStore, ['getCart', 'putCart', 'deleteCart', 'deleteCarts', 'postCoupon',]),
-    ...mapActions(ordersStore, ['postOrder',]),
+    ...mapActions(ordersStore, ['getOrder', 'postPayOrder'])
   },
   computed: {
-    ...mapState(cartsStore, ['isLoading', 'cartsData', 'allCartsData']),
+    ...mapState(ordersStore, ['isLoading', 'showData', 'userData', 'payData', 'productData', 'couponData'])
   },
   mounted() {
-    this.getCart();
+    this.getOrder();
   },
 });
 

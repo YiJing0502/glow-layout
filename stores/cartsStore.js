@@ -1,6 +1,5 @@
 const { defineStore } = Pinia;
 import { baseUrl, apiPath } from '../views/config.js';
-// import productsStore from './productsStore.js';
 
 export default defineStore('cartsStore', {
   state: ()=>({
@@ -8,17 +7,14 @@ export default defineStore('cartsStore', {
     cartsData: [],
     // 總購物車資料
     allCartsData: [],
+    // 是否為載入中
     isLoading: false,
-    total: 0,
-    finalTotal: 0,
-    
-    successfullyUseCoupon: false,
   }),
   getters: {
 
   },
   actions: {
-    // 取得所有購物車資訊
+    // ajax, 取得所有購物車資訊
     getCart() {
       this.isLoading = true;
       const url = `${baseUrl}/v2/api/${apiPath}/cart`;
@@ -40,7 +36,7 @@ export default defineStore('cartsStore', {
           console.log('err', err);
         })
     },
-    // 加入購物車商品方法
+    // ajax, 加入購物車商品方法
     postCart(productId, qty) {
       const url = `${baseUrl}/v2/api/${apiPath}/cart`;
       const data = {
@@ -57,7 +53,7 @@ export default defineStore('cartsStore', {
           console.log('err', err);
         })
     },
-    // 修改購物車商品數量方法
+    // ajax, 修改購物車商品數量方法
     putCart(productCartId, productId, qty) {
       console.log(productId, qty);
 
@@ -77,7 +73,7 @@ export default defineStore('cartsStore', {
           console.log('err', err);
         })
     },
-    // 刪除購物車商品方法
+    // ajax, 刪除購物車商品方法
     deleteCart(productCartId){
       const url = `${baseUrl}/v2/api/${apiPath}/cart/${productCartId}`;
       axios.delete(url)
@@ -89,7 +85,7 @@ export default defineStore('cartsStore', {
           console.log('err', err);
         })
     },
-    // 刪除全部購物車方法
+    // ajax, 刪除全部購物車方法
     deleteCarts(){
       const url = `${baseUrl}/v2/api/${apiPath}/carts`;
       axios.delete(url)
@@ -102,9 +98,8 @@ export default defineStore('cartsStore', {
         })
         
     },
-    // 使用優惠券方法
+    // ajax, 使用優惠券方法
     postCoupon(code){
-      console.log(code);
       const url = `${baseUrl}/v2/api/${apiPath}/coupon`;
       const data = {
         "data": {
@@ -119,6 +114,6 @@ export default defineStore('cartsStore', {
       .catch(err=>{
         console.log('err', err);
       })
-    }
+    },
   },
 });

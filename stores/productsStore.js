@@ -1,4 +1,5 @@
 const { defineStore } = Pinia;
+import stringStore from './stringStore.js';
 import { baseUrl, apiPath } from '../views/config.js';
 export default defineStore('productsStore', {
   state: ()=>({
@@ -44,17 +45,14 @@ export default defineStore('productsStore', {
       axios.get(url)
         .then(res=>{
           this.showData = {...res.data.product};
-          this.showData.content = this.splitStringByNewline(this.showData.content);
+          const { splitStringByNewline } = stringStore();
+          this.showData.content = splitStringByNewline(this.showData.content);
           this.isLoading = false;
           console.log(this.showData);
         })
         .catch(err=>{
           console.log('err', err);
         })
-    },
-    // 按換行符拆分字串
-    splitStringByNewline(str){
-      return str.split('\n');
     },
   },
 });

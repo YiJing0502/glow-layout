@@ -47,7 +47,9 @@
                     目前購物車內沒有商品
                   </div>
                   <div v-else class="">
-                    <div class="row mb-3" v-for="item in cartsData" :key="item.id">
+                    <div class="row mb-3 position-relative" v-for="item in cartsData" :key="item.id">
+                      <loading v-show="isSmLoading" :active="isSmLoading" :is-full-page="false" :color="'#52504B'">
+                      </loading>
                       <div class="col-3 d-flex align-items-center">
                         <img :src="item.product.imageUrl" :alt="item.product.title" class="img-fluid">
                       </div>
@@ -58,7 +60,9 @@
                             @click="deleteCart(item.id)"></button>
                         </div>
                         <p>單價NT$ {{ parseInt(item.product.price) }} / 小計NT$ {{ parseInt(item.total) }} <span
-                            v-if="item.final_total !== item.total">/ 優惠價NT$ {{ parseInt(item.final_total) }} </span></p>
+                            v-if="item.final_total !== item.total">/ 優惠價NT$ {{ parseInt(item.final_total) }} </span>
+                        </p>
+
                         <quantity-control-btns :inventory="item.product.inventory" :id="item.product_id" :qty="item.qty"
                           :product-cart-id="item.id" @put-num="putCart"></quantity-control-btns>
                       </div>

@@ -9,6 +9,8 @@ export default defineStore('cartsStore', {
     allCartsData: [],
     // 是否為載入中（全頁）
     isLoading: false,
+    // 是否為載入中(小元件)
+    isSmLoading: false,
   }),
   getters: {
 
@@ -60,6 +62,7 @@ export default defineStore('cartsStore', {
     },
     // ajax, 修改購物車商品數量方法
     putCart(productCartId, productId, qty) {
+      this.isSmLoading = true;
       const url = `${baseUrl}/v2/api/${apiPath}/cart/${productCartId}`;
       const data = {
         "data": {
@@ -71,6 +74,7 @@ export default defineStore('cartsStore', {
         .then(res=>{
           this.getCart(false);
           alert('修改購物車商品數量成功');
+          this.isSmLoading = false;
         })
         .catch(err=>{
           alert('修改購物車商品數量失敗，請稍後再試')

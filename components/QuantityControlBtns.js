@@ -8,7 +8,7 @@ export default {
   props: ['inventory', 'id', 'qty','productCartId'],
   emit: ['putNum'],
   methods: {
-    // 增加數量
+    // 按鈕, 增加數量
     plusNum(){
       if(this.currentNum >= 1 && this.currentNum<this.inventory){
         this.currentNum += 1;
@@ -17,7 +17,7 @@ export default {
         this.currentNum = 1;
       };
     },
-    // 減少數量
+    // 按鈕, 減少數量
     minusNum(){
       if(this.currentNum > 1){
         this.currentNum -= 1;
@@ -26,14 +26,16 @@ export default {
         this.currentNum = 1;
       };
     },
-    // 限制數量
-    inputNum(e){
-      if(e.target.value > this.inventory){
-        this.currentNum = this.inventory;
-      }
-    },
+    // 輸入, 自訂數量
     blurNum(e){
       this.currentNum = e.target.value;
+      if(e.target.value > this.inventory){
+        this.currentNum = this.inventory;
+      }else if(e.target.value < this.inventory){
+        this.currentNum = 1;
+      }else{
+        this.currentNum = 1;
+      };
       this.$emit('putNum', this.productCartId, this.id, Number(this.currentNum));
     }
   },
@@ -48,7 +50,7 @@ export default {
   template: `<div class="d-flex">
   <div class="bg-white d-flex w-50 mb-3 gap-3 border">
     <button type="button" class="btn btn-lg" @click="minusNum">-</button>
-    <input type="number" class="form-control border-white shadow-none text-center" v-model.number="currentNum" @input="inputNum" @blur="blurNum">
+    <input type="number" class="form-control border-white shadow-none text-center" v-model.number="currentNum" @blur="blurNum">
     <button type="button" class="btn btn-lg" @click="plusNum">+</button>
   </div>
   <p class="d-flex align-items-end ms-3">目前庫存：{{ inventory }}</p>

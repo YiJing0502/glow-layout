@@ -80,11 +80,11 @@ export default defineStore('ordersStore', {
           console.log(total - final_total);
           if(products[item].coupon !== undefined){
             this.couponData = products[item].coupon;
-          }else{
-            this.couponData = null;
           };
         })
-        
+        if(Object.keys(this.couponData).length === 0){
+          this.couponData = null;
+        }
         this.isLoading = false;
         console.log('showData',this.showData);
         console.log('userData',this.userData);

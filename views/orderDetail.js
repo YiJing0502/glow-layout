@@ -44,5 +44,6 @@ const app = createApp({
 
 const pinia = createPinia();
 app.use(pinia);
-
+// vueLoadingComponent
+app.component('loading', VueLoading.Component);
 app.mount('#app');

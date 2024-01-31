@@ -7,13 +7,17 @@
   <title>ProductList</title>
   <!-- bootStrapCss -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <!-- vueLoadingCss -->
+  <link href="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6/dist/css/index.css" rel="stylesheet">
   <!-- localCss -->
   <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
   <div id="app">
-    <div class="container bg-main-medi rounded-10em mt-5 mb-5 px-5r py-7r">
+    <loading v-if="isLoading" :active="isLoading" :background-color="'#EBEAE4'" :is-full-page="true" :color="'#52504B'">
+    </loading>
+    <div v-else class="container bg-main-medi rounded-10em mt-5 mb-5 px-5r py-7r">
       <div class="row">
         <!-- sort title -->
         <div class="col-8">
@@ -127,6 +131,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pinia/2.0.28/pinia.iife.js"></script>
   <!-- bootStrapJs -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- vueLoadingJs -->
+  <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6.0.3/dist/index.min.js"></script>
   <!-- axios -->
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <!-- 引入本地 product.js -->

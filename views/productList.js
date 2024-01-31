@@ -25,7 +25,7 @@ const app = createApp({
     ...mapActions(productsStore, ['getProductsAll', 'getProduct', 'changeToProductPage']),
   },
   computed: {
-    ...mapState(productsStore, ['productsData']),
+    ...mapState(productsStore, ['isLoading','productsData']),
   },
   mounted() {
     this.getProductsAll();
@@ -34,5 +34,6 @@ const app = createApp({
 
 const pinia = createPinia();
 app.use(pinia);
-
+// vueLoadingComponent
+app.component('loading', VueLoading.Component);
 app.mount('#app');

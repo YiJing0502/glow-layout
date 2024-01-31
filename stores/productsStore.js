@@ -16,15 +16,14 @@ export default defineStore('productsStore', {
   actions: {
     // 取得所有產品
     getProductsAll() {
-      this.isLoading = true
+      this.isLoading = true;
       const url = `${baseUrl}/v2/api/${apiPath}/products/all`;
       return axios.get(url)
         .then(res => {
           this.productsData = res.data.products;
-          return res
+          this.isLoading = false;
         })
         .catch(err => {
-          throw err
         });
     },
     // 跳轉至產品頁面

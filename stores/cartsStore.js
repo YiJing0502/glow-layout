@@ -15,19 +15,24 @@ export default defineStore('cartsStore', {
   },
   actions: {
     // ajax, 取得所有購物車資訊
-    getCart() {
-      this.isLoading = true;
+    getCart(isInitialLoad = true) {
+      if (isInitialLoad) {
+        this.isLoading = true; // show loading for the entire page
+      }
       const url = `${baseUrl}/v2/api/${apiPath}/cart`;
       axios.get(url)
         .then(res=>{
           // 購物車資料
           this.cartsData = [...res.data.data.carts];
           this.allCartsData = {...res.data.data};
-          this.isLoading = false;
           if(this.allCartsData.total !== this.allCartsData.final_total) {
             this.allCartsData.useCoupon = true;
           }else{
             this.allCartsData.useCoupon = false;
+          };
+          if (isInitialLoad) {
+            // Hide loading for the entire page only for the initial load
+            this.isLoading = false;
           }
           console.log('res.data.data', res.data.data);
           console.log(this.allCartsData);
@@ -68,7 +73,7 @@ export default defineStore('cartsStore', {
       axios.put(url, data)
         .then(res=>{
           console.log('res', res);
-          this.getCart();
+          this.getCart(false);
         })
         .catch(err=>{
           console.log('err', err);

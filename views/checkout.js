@@ -1,9 +1,7 @@
-console.clear();
 const { createApp } = Vue;
 const { createPinia, mapActions, mapState } = Pinia;
 import cartsStore from '../stores/cartsStore.js';
 import ordersStore from '../stores/ordersStore.js';
-
 // 元件
 import QuantityControlBtns from '../components/QuantityControlBtns.js';
 // VeeValidateRules
@@ -50,12 +48,9 @@ const app = createApp({
       return phoneNumber.test(value) ? true : '請輸入正確的行動電話號碼'
     },
     goToPutCart(productCartId,productId,qty){
-      console.log('goToPostCart',productCartId,productId,qty);
       this.putCart(productCartId,productId,qty)
     },
     goToPostCoupon(){
-      console.log(this.couponCode);
-      // this.useCoupon = false;
       this.postCoupon(this.couponCode);
     },
     ...mapActions(cartsStore, ['getCart', 'putCart', 'deleteCart', 'deleteCarts', 'postCoupon',]),

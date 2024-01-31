@@ -1,4 +1,3 @@
-console.clear();
 const { createApp } = Vue;
 const { createPinia, mapActions, mapState } = Pinia;
 import ordersStore from '../stores/ordersStore.js';

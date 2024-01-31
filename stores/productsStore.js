@@ -11,7 +11,7 @@ export default defineStore('productsStore', {
     isLoading: false,
   }),
   getters: {
-    getProductsData: (state) => state.productsData,
+
   },
   actions: {
     // 取得所有產品
@@ -24,6 +24,7 @@ export default defineStore('productsStore', {
           this.isLoading = false;
         })
         .catch(err => {
+          alert('很抱歉，載入所有商品失敗，請稍後再試');
         });
     },
     // 跳轉至產品頁面
@@ -47,10 +48,11 @@ export default defineStore('productsStore', {
           const { splitStringByNewline } = stringStore();
           this.showData.content = splitStringByNewline(this.showData.content);
           this.isLoading = false;
-          console.log(this.showData);
         })
         .catch(err=>{
-          console.log('err', err);
+          alert('很抱歉，查無此產品，請稍後再試');
+          const url = `productList.html`;
+          window.location.href = url;
         })
     },
   },

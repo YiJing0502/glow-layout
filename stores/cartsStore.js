@@ -17,7 +17,8 @@ export default defineStore('cartsStore', {
     // ajax, 取得所有購物車資訊
     getCart(isInitialLoad = true) {
       if (isInitialLoad) {
-        this.isLoading = true; // show loading for the entire page
+        // 顯示整頁的Loading
+        this.isLoading = true; 
       }
       const url = `${baseUrl}/v2/api/${apiPath}/cart`;
       axios.get(url)
@@ -31,14 +32,12 @@ export default defineStore('cartsStore', {
             this.allCartsData.useCoupon = false;
           };
           if (isInitialLoad) {
-            // Hide loading for the entire page only for the initial load
+            // 關閉整頁的Loading
             this.isLoading = false;
-          }
-          console.log('res.data.data', res.data.data);
-          console.log(this.allCartsData);
+          };
         })
         .catch(err=>{
-          console.log('err', err);
+          alert('取得購物車資訊失敗，請稍後再試');
         })
     },
     // ajax, 加入購物車商品方法
@@ -52,18 +51,15 @@ export default defineStore('cartsStore', {
       };
       axios.post(url, data)
         .then(res=>{
-          console.log('res', res);
-          alert(res.data.message);
           this.getCart(false);
+          alert(res.data.message);
         })
         .catch(err=>{
-          console.log('err', err);
+          alert('加入購物車失敗，請稍後再試')
         })
     },
     // ajax, 修改購物車商品數量方法
     putCart(productCartId, productId, qty) {
-      console.log(productId, qty);
-
       const url = `${baseUrl}/v2/api/${apiPath}/cart/${productCartId}`;
       const data = {
         "data": {
@@ -73,37 +69,36 @@ export default defineStore('cartsStore', {
       };
       axios.put(url, data)
         .then(res=>{
-          console.log('res', res);
           this.getCart(false);
+          alert('修改購物車商品數量成功');
         })
         .catch(err=>{
-          console.log('err', err);
-        })
+          alert('修改購物車商品數量失敗，請稍後再試')
+        });
     },
     // ajax, 刪除購物車商品方法
     deleteCart(productCartId){
       const url = `${baseUrl}/v2/api/${apiPath}/cart/${productCartId}`;
       axios.delete(url)
         .then(res=>{
-          console.log('res', res);
           this.getCart(false);
+          alert('刪除購物車商品成功');
         })
         .catch(err=>{
-          console.log('err', err);
-        })
+          alert('刪除購物車商品失敗，請稍後再試');
+        });
     },
     // ajax, 刪除全部購物車方法
     deleteCarts(){
       const url = `${baseUrl}/v2/api/${apiPath}/carts`;
       axios.delete(url)
         .then(res=>{
-          console.log('res', res);
           this.getCart(false);
+          alert('刪除所有購物車商品成功');
         })
         .catch(err=>{
-          console.log('err', err);
-        })
-        
+          alert('刪除所有購物車商品失敗，請稍後再試');
+        });
     },
     // ajax, 使用優惠券方法
     postCoupon(code){
@@ -115,11 +110,11 @@ export default defineStore('cartsStore', {
       };
       axios.post(url, data)
       .then(res=>{
-        console.log('res', res);
         this.getCart(false);
+        alert('使用優惠券成功');
       })
       .catch(err=>{
-        console.log('err', err);
+        alert('使用優惠券失敗，請稍後再試');
       })
     },
   },

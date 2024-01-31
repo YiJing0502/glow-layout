@@ -1,9 +1,7 @@
-console.clear();
 const { createApp } = Vue;
-import { baseUrl, apiPath } from './config.js';
 // 元件
 import QuantityControlBtns from '../components/QuantityControlBtns.js';
-const { createPinia, mapState, mapActions, mapGetters } = Pinia;
+const { createPinia, mapState, mapActions } = Pinia;
 import productsStore from '../stores/productsStore.js';
 import cartsStore from '../stores/cartsStore.js';
 

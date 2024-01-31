@@ -1,4 +1,3 @@
-console.clear();
 const { createApp } = Vue;
 import { baseUrl, apiPath } from './config.js';
 // components
@@ -306,7 +305,6 @@ const app = createApp({
         };
       });
       if(newData.length === 0){
-        console.log(newData.length);
         this.serverMessage.message = '很抱歉，沒有符合搜尋條件的產品';
         this.serverMessage.success = false;
         myResultModal.show();

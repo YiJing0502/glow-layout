@@ -10,11 +10,9 @@ export default {
   methods: {
     // 增加數量
     plusNum(){
-      console.log(typeof this.currentNum);
       if(this.currentNum >= 1 && this.currentNum<this.inventory){
         this.currentNum += 1;
         this.$emit('putNum', this.productCartId, this.id, this.currentNum);
-        console.log();
       }else{
         this.currentNum = 1;
       };
@@ -41,9 +39,6 @@ export default {
   },
   watch: {
     qty(newQty, oldQty){
-      console.log(newQty);
-      console.log(newQty, oldQty);
-
       this.currentNum = newQty;
     }
   },

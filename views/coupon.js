@@ -1,4 +1,3 @@
-console.clear();
 const { createApp } = Vue;
 import { baseUrl, apiPath } from './config.js';
 import LoadingAnimation from '../components/LoadingAnimation.js';

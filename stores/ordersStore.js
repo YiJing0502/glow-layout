@@ -6,7 +6,7 @@ export default defineStore('ordersStore', {
   state: ()=>({
     // 是否為載入中
     isLoading: false,
-    // 訂單總資料
+    // 訂單相關的總資料
     showData: {},
     userData: {},
     productData: [],
@@ -23,11 +23,11 @@ export default defineStore('ordersStore', {
       const url = `${baseUrl}/v2/api/${apiPath}/order`;
       axios.post(url, data)
       .then(res=>{
-        console.log('res', res);
         this.changeToIdPage(res.data.orderId, 'payment.html');
+        alert('訂單已建立，請接續付款流程');
       })
       .catch(err=>{
-        console.log('err', err);
+        alert('訂單送出失敗，請稍後再試');
       })
     },
     // fn, 跳轉至某個帶有id的頁面
@@ -46,7 +46,6 @@ export default defineStore('ordersStore', {
       const url = `${baseUrl}/v2/api/${apiPath}/order/${orderId}`;
       axios.get(url)
       .then(res=>{
-        console.log('res', res);
         const { create_at, id, is_paid, message, paid_date, products, total, user } = res.data.order;
         this.showData = {
           create_at,
@@ -77,22 +76,19 @@ export default defineStore('ordersStore', {
           };
           this.productData.push(newProductData);
           // 確認是否使用優惠券
-          console.log(total - final_total);
           if(products[item].coupon !== undefined){
             this.couponData = products[item].coupon;
           };
-        })
+        });
         if(Object.keys(this.couponData).length === 0){
           this.couponData = null;
-        }
+        };
         this.isLoading = false;
-        console.log('showData',this.showData);
-        console.log('userData',this.userData);
-        console.log('productData',this.productData);
-        console.log('couponData',this.couponData);
       })
       .catch(err=>{
-        console.log('err', err);
+        alert('很抱歉，查無資訊');
+        const url = `productList.html`;
+        window.location.href = url;
       });
     },
     // ajax, 付款特定訂單
@@ -101,13 +97,13 @@ export default defineStore('ordersStore', {
       this.isLoading = true;
       axios.post(url)
       .then(res=>{
-        console.log('res', res);
         this.payData = res.data;
         this.getOrder();
         this.isLoading = false;
+        alert('您已付款成功');
       })
       .catch(err=>{
-        console.log('err', err);
+        alert('很抱歉，付款失敗，請稍後再試');
       });
     },
   },

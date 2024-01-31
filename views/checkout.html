@@ -206,56 +206,66 @@
               <div id="RecipientInformationDetails" class="accordion-collapse collapse show"
                 aria-labelledby="RecipientInformationSection">
                 <div class="accordion-body">
-                  <!-- 收件人名稱 -->
-                  <div class="mb-3">
-                    <label for="category" class="form-label">收件人名稱</label>
-                    <input type="text" class="form-control" id="category" placeholder="請填入收件人真實姓名，以確保順利收件"
-                      v-model="orderData.data.user.name">
-                  </div>
-                  <!-- 電子信箱 -->
-                  <div class="mb-3">
-                    <label for="category" class="form-label">電子信箱</label>
-                    <input type="text" class="form-control" id="category" placeholder="請填入訂單通知Email (訂單資訊將以此E-mail通知您)"
-                      v-model="orderData.data.user.email">
-                  </div>
-                  <!-- 行動電話號碼 -->
-                  <div class="mb-3">
-                    <label for="category" class="form-label">行動電話號碼</label>
-                    <input type="text" class="form-control" id="category" placeholder="請填入收件人行動號碼 (供配送人員聯絡)"
-                      v-model="orderData.data.user.tel">
-                  </div>
-                  <!-- 收件地址 -->
-                  <div class="mb-3">
-                    <label for="category" class="form-label">收件地址</label>
-                    <input type="text" class="form-control" id="category" placeholder="送貨地點目前僅提供：台灣、台灣外島宅配"
-                      v-model="orderData.data.user.address">
-                  </div>
-                  <!-- 訂單備註 -->
-                  <div class="mb-3">
-                    <p>訂單備註</p>
-                    <textarea class="w-100 form-control" id="orderMessage" name="orderMessage" rows="5"
-                      placeholder="管理室代收/電話聯絡時間..." v-model="orderData.data.message"></textarea>
-                  </div>
-                  <!-- 注意事項 -->
-                  <div class="form-check mb-3">
-                    <input type="checkbox" class="form-check-input" id="is_enabled" v-model="checkOrderInfo">
-                    <label for="is_enabled" class="form-check-label">
-                      <span class="text-main-spec fw-bold">我已確認以下內容：</span>
-                      <span><br>提醒您，送出訂單後，將無法修改訂單內容，並前往付款流程，請您確定無誤後再送出😄</span>
-                    </label>
-                  </div>
-                  <!-- 小提醒 -->
-                  <div class="bg-medium-gray text-deep-gray px-3 py-2 mb-3">
-                    <h6>免運服務</h6>
-                    <span>我們的商品付款採用「線上信用卡」付款後出貨，運送採用「宅配到府」免運服務，讓您輕鬆購買、安心收貨。</span>
-                  </div>
-                  <!-- 結帳按鈕 -->
-                  <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-solid-spec w-100 btn-lg" :disabled="!checkOrderInfo"
-                      @click="postOrder(orderData)">結帳</button>
-                  </div>
-                  {{ orderData }}
-                  checkOrderInfo：{{ checkOrderInfo }}
+                  <v-form @submit="postOrder(orderData)" v-slot="{ errors }">
+                    <!-- 收件人名稱 -->
+                    <div class="mb-3">
+                      <label for="category" class="form-label">收件人名稱</label>
+                      <v-field type="text" name="收件人" class="form-control" :class="{ 'is-invalid': errors['收件人'] }"
+                        rules="required|max:15" id="category" placeholder="請填入收件人真實姓名，以確保順利收件"
+                        v-model="orderData.data.user.name"></v-field>
+                      <error-message class="invalid-feedback" name="收件人"></error-message>
+                    </div>
+                    <!-- 電子信箱 -->
+                    <div class="mb-3">
+                      <label for="email" class="form-label">電子信箱</label>
+                      <v-field type="email" class="form-control" :class="{ 'is-invalid': errors['電子信箱'] }" id="email"
+                        rules="email|required" name="電子信箱" placeholder="請填入訂單通知Email (訂單資訊將以此E-mail通知您)"
+                        v-model="orderData.data.user.email"></v-field>
+                      <error-message class="invalid-feedback" name="電子信箱"></error-message>
+                    </div>
+                    <!-- 行動電話號碼 -->
+                    <div class="mb-3">
+                      <label for="phone" class="form-label">行動電話號碼</label>
+                      <v-field type="text" name="行動電話" :rules="isPhone" class="form-control"
+                        :class="{ 'is-invalid': errors['行動電話'] }" id="phone" placeholder="請填入收件人行動電話號碼 (供配送人員聯絡)"
+                        v-model="orderData.data.user.tel"></v-field>
+                      <error-message class="invalid-feedback" name="行動電話"></error-message>
+                    </div>
+                    <!-- 收件地址 -->
+                    <div class="mb-3">
+                      <label for="address" class="form-label">收件地址</label>
+                      <v-field type="text" name="收件地址" class="form-control" :class="{ 'is-invalid': errors['收件地址'] }"
+                        id="address" rules="required|max:50" placeholder="送貨地點目前僅提供：台灣、台灣外島宅配"
+                        v-model="orderData.data.user.address"></v-field>
+                      <error-message class="invalid-feedback" name="收件地址"></error-message>
+                    </div>
+                    <!-- 訂單備註 -->
+                    <div class="mb-3">
+                      <p>訂單備註</p>
+                      <v-field as="textarea" name="訂單備註" class="w-100 form-control"
+                        :class="{ 'is-invalid': errors['訂單備註'] }" id="orderMessage" name="orderMessage" rows="5"
+                        placeholder="管理室代收/電話聯絡時間..." rules="max:800" v-model="orderData.data.message"></v-field>
+                      <error-message class="invalid-feedback" name="訂單備註"></error-message>
+                    </div>
+                    <!-- 注意事項 -->
+                    <div class="form-check mb-3">
+                      <input type="checkbox" class="form-check-input" id="is_enabled" v-model="checkOrderInfo">
+                      <label for="is_enabled" class="form-check-label">
+                        <span class="text-main-spec fw-bold">我已確認以下內容：</span>
+                        <span><br>提醒您，送出訂單後，將無法修改訂單內容，並前往付款流程，請您確定無誤後再送出😄</span>
+                      </label>
+                    </div>
+                    <!-- 小提醒 -->
+                    <div class="bg-medium-gray text-deep-gray px-3 py-2 mb-3">
+                      <h6>免運服務</h6>
+                      <span>我們的商品付款採用「線上信用卡」付款後出貨，運送採用「宅配到府」免運服務，讓您輕鬆購買、安心收貨。</span>
+                    </div>
+                    <!-- 結帳按鈕 -->
+                    <div class="d-flex mb-3">
+                      <button type="submit" class="btn btn-solid-spec w-100 btn-lg"
+                        :disabled="!checkOrderInfo">結帳</button>
+                    </div>
+                  </v-form>
                 </div>
               </div>
             </div>
@@ -275,6 +285,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   <!-- vueLoadingJs -->
   <script src="https://cdn.jsdelivr.net/npm/vue-loading-overlay@6.0.3/dist/index.min.js"></script>
+  <!-- veeValidation 相關套件 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.12.4/vee-validate.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.12.4/dist/vee-validate-rules.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.12.4/dist/vee-validate-i18n.min.js"></script>
   <!-- axios -->
   <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
   <!-- 引入本地 checkout.js -->

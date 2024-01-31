@@ -7,7 +7,7 @@ export default defineStore('cartsStore', {
     cartsData: [],
     // 總購物車資料
     allCartsData: [],
-    // 是否為載入中
+    // 是否為載入中（全頁）
     isLoading: false,
   }),
   getters: {
@@ -53,7 +53,8 @@ export default defineStore('cartsStore', {
       axios.post(url, data)
         .then(res=>{
           console.log('res', res);
-          this.getCart();
+          alert(res.data.message);
+          this.getCart(false);
         })
         .catch(err=>{
           console.log('err', err);
@@ -85,7 +86,7 @@ export default defineStore('cartsStore', {
       axios.delete(url)
         .then(res=>{
           console.log('res', res);
-          this.getCart();
+          this.getCart(false);
         })
         .catch(err=>{
           console.log('err', err);
@@ -97,7 +98,7 @@ export default defineStore('cartsStore', {
       axios.delete(url)
         .then(res=>{
           console.log('res', res);
-          this.getCart();
+          this.getCart(false);
         })
         .catch(err=>{
           console.log('err', err);
@@ -115,7 +116,7 @@ export default defineStore('cartsStore', {
       axios.post(url, data)
       .then(res=>{
         console.log('res', res);
-        this.getCart();
+        this.getCart(false);
       })
       .catch(err=>{
         console.log('err', err);

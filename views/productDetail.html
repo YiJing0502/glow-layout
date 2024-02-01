@@ -56,15 +56,16 @@
             <div class="bg-white d-flex w-50 mb-3 gap-3 border">
               <button type="button" class="btn btn-lg" @click="minusNum">-</button>
               <input type="number" class="form-control border-white shadow-none text-center" v-model.number="currentNum"
-                @input="inputNum">
+                @blur="blurNum">
               <button type="button" class="btn btn-lg" @click="plusNum">+</button>
             </div>
             <p class="d-flex align-items-end ms-3">目前庫存：{{ showData.inventory }}</p>
           </div>
           <!-- 加入購物車 -->
-          <div class="d-flex mb-3">
+          <div v-if="isSmLoading" class="">loading</div>
+          <div v-else class="d-flex mb-3">
             <button type="button" class="btn btn-solid-spec w-100 btn-lg"
-              @click="postCart(showData.id, currentNum)">加入購物車</button>
+              @click="goToPostCart(showData.id, currentNum, showData.inventory)">加入購物車</button>
           </div>
           <hr>
           <!-- 手風琴組 -->

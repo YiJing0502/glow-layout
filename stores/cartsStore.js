@@ -1,6 +1,5 @@
 const { defineStore } = Pinia;
 import { baseUrl, apiPath } from '../views/config.js';
-
 export default defineStore('cartsStore', {
   state: ()=>({
     // 購物車產品資料
@@ -18,6 +17,7 @@ export default defineStore('cartsStore', {
   actions: {
     // ajax, 取得所有購物車資訊
     getCart(isInitialLoad = true) {
+      this.isSmLoading = true;
       if (isInitialLoad) {
         // 顯示整頁的Loading
         this.isLoading = true; 
@@ -37,6 +37,7 @@ export default defineStore('cartsStore', {
             // 關閉整頁的Loading
             this.isLoading = false;
           };
+          this.isSmLoading = false;
         })
         .catch(err=>{
           alert('取得購物車資訊失敗，請稍後再試');
@@ -44,6 +45,7 @@ export default defineStore('cartsStore', {
     },
     // ajax, 加入購物車商品方法
     postCart(productId, qty) {
+
       const url = `${baseUrl}/v2/api/${apiPath}/cart`;
       const data = {
         "data": {

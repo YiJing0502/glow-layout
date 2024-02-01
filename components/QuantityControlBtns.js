@@ -10,33 +10,29 @@ export default {
   methods: {
     // 按鈕, 增加數量
     plusNum(){
+      this.currentNum = parseInt(this.currentNum);
       if(this.currentNum >= 1 && this.currentNum<this.inventory){
         this.currentNum += 1;
         this.$emit('putNum', this.productCartId, this.id, this.currentNum);
-      }else{
-        this.currentNum = 1;
       };
     },
     // 按鈕, 減少數量
     minusNum(){
+      this.currentNum = parseInt(this.currentNum);
       if(this.currentNum > 1){
         this.currentNum -= 1;
         this.$emit('putNum', this.productCartId, this.id, this.currentNum);
-      }else{
-        this.currentNum = 1;
       };
     },
     // 輸入, 自訂數量
     blurNum(e){
-      this.currentNum = e.target.value;
-      if(e.target.value > this.inventory){
+      this.currentNum = parseInt(e.target.value);
+      if(this.currentNum > this.inventory){
         this.currentNum = this.inventory;
-      }else if(e.target.value < this.inventory){
-        this.currentNum = 1;
-      }else{
+      }else if(this.currentNum <= 0){
         this.currentNum = 1;
       };
-      this.$emit('putNum', this.productCartId, this.id, Number(this.currentNum));
+      this.$emit('putNum', this.productCartId, this.id, this.currentNum);
     }
   },
   watch: {
@@ -45,6 +41,9 @@ export default {
     }
   },
   mounted() {
+    if(this.qty > this.inventory){
+      this.$emit('putNum', this.productCartId, this.id, this.inventory);
+    };
     this.currentNum = this.qty;
   },
   template: `<div class="d-flex">

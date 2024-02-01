@@ -34,7 +34,7 @@ const app = createApp({
     ...mapActions(ordersStore, ['getOrder', 'postPayOrder'])
   },
   computed: {
-    ...mapState(ordersStore, ['isLoading', 'showData', 'userData', 'payData', 'productData', 'couponData'])
+    ...mapState(ordersStore, ['isLoading', 'showData', 'userData', 'productData', 'couponData'])
   },
   mounted() {
     this.getOrder();

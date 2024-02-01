@@ -12,7 +12,7 @@ const app = createApp({
     ...mapActions(ordersStore, ['getOrder', 'postPayOrder', 'changeToIdPage'])
   },
   computed: {
-    ...mapState(ordersStore, ['isLoading', 'showData', 'payData'])
+    ...mapState(ordersStore, ['isLoading', 'showData',])
   },
   mounted() {
     this.getOrder();

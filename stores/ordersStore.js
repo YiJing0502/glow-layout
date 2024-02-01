@@ -23,7 +23,7 @@ export default defineStore('ordersStore', {
       axios.post(url, data)
       .then(res=>{
         this.changeToIdPage(res.data.orderId, 'payment.html');
-        // 重新渲染購物車
+        // 送出訂單時重新取得最新購物車狀態
         const { getCart } = cartsStore();
         getCart(false);
         alert('訂單已建立，請接續付款流程');

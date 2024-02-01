@@ -61,7 +61,7 @@
                   </div>
                   <div v-else class="">
                     <div class="row mb-3 position-relative" v-for="item in cartsData" :key="item.id">
-                      <loading v-show="isSmLoading" :active="isSmLoading" :is-full-page="false" :color="'#52504B'">
+                      <loading :active="item.isSmLoading" :is-full-page="false" :color="'#52504B'">
                       </loading>
                       <div class="col-3 d-flex align-items-center">
                         <img :src="item.product.imageUrl" :alt="item.product.title" class="img-fluid">

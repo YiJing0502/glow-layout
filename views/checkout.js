@@ -57,7 +57,7 @@ const app = createApp({
     ...mapActions(ordersStore, ['postOrder',]),
   },
   computed: {
-    ...mapState(cartsStore, ['isLoading', 'isSmLoading', 'cartsData', 'allCartsData']),
+    ...mapState(cartsStore, ['isLoading', 'cartsData', 'allCartsData']),
   },
   mounted() {
     this.getCart();

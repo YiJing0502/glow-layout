@@ -8,7 +8,7 @@ export default defineStore('cartsStore', {
     allCartsData: [],
     // 是否為載入中（全頁）
     isLoading: false,
-    // 是否為載入中(小元件)
+    // 是否為載入中(加入購物車的狀態)
     isSmLoading: false,
   }),
   getters: {
@@ -18,13 +18,11 @@ export default defineStore('cartsStore', {
     // ajax, 取得所有購物車資訊
     getCart(isInitialLoad = true) {
       return new Promise((resolve, reject)=>{
-        this.isSmLoading = true;
         if (isInitialLoad) {
           // 顯示整頁的Loading
           this.isLoading = true; 
-        }
+        };
         const url = `${baseUrl}/v2/api/${apiPath}/cart`;
-  
         axios.get(url)
           .then(res=>{
             // 購物車資料
@@ -39,7 +37,10 @@ export default defineStore('cartsStore', {
               // 關閉整頁的Loading
               this.isLoading = false;
             };
-            this.isSmLoading = false;
+            // 為每一個個別產品加上關閉的loading屬性
+            this.cartsData.forEach(item=>{
+              item.isSmLoading = false;
+            });
             resolve(); // 完成 Promise
           })
           .catch(err=>{
@@ -47,11 +48,13 @@ export default defineStore('cartsStore', {
               // 關閉整頁的Loading
               this.isLoading = false;
             };
-            this.isSmLoading = false;
+            // 個別產品loading 調整為關閉
+            this.cartsData.forEach(item=>{
+              item.isSmLoading = false;
+            });
             alert('取得購物車資訊失敗，請稍後再試');
             reject(err); // 拒絕 Promise，傳遞錯誤
-          })
-
+          });
       })
     },
     // ajax, 加入購物車商品方法
@@ -82,15 +85,15 @@ export default defineStore('cartsStore', {
           "qty": qty,
         }
       };
-      this.isSmLoading = true;
+      // 將購物車中要修改數量的產品，loading狀態改為true;
+      const cartsPutProduct = this.cartsData.find(item=> item.id === productCartId);
+      cartsPutProduct.isSmLoading = true;
       try {
         await axios.put(url, data);
         await this.getCart(false);
         alert('修改購物車商品數量成功');
-        this.isSmLoading = false;
       }
       catch {
-        this.isSmLoading = false;
         alert('修改購物車商品數量失敗，請稍後再試')
       };
     },

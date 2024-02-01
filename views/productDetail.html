@@ -54,10 +54,11 @@
           <!-- 購物車增減按鈕與庫存 -->
           <div class="d-flex">
             <div class="bg-white d-flex w-50 mb-3 gap-3 border">
-              <button type="button" class="btn btn-lg" @click="minusNum">-</button>
+              <button :disabled="currentNum===1" type="button" class="btn btn-lg" @click="minusNum">-</button>
               <input type="number" class="form-control border-white shadow-none text-center" v-model.number="currentNum"
                 @blur="blurNum">
-              <button type="button" class="btn btn-lg" @click="plusNum">+</button>
+              <button :disabled="currentNum===showData.inventory" type="button" class="btn btn-lg"
+                @click="plusNum">+</button>
             </div>
             <p class="d-flex align-items-end ms-3">目前庫存：{{ showData.inventory }}</p>
           </div>

@@ -5,6 +5,7 @@
 .form-floating>.form-control, .form-floating>.form-control-plaintext, .form-floating>.form-select {
   background-color: $mediumMainColor;
 }
+
 // bs-input 改動既有設定
 .form-control:focus{
   border-color: $deepGrayColor;
@@ -33,6 +34,9 @@
 // bs-btn-close
 .btn-close {
   --bs-btn-close-focus-shadow: 0 0 0 0.25rem $whiteColor;
+}
+.btn:disabled {
+  border: unset;
 }
 // bs-list-group
 .list-group-item {

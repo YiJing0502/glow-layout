@@ -68,11 +68,16 @@ const app = createApp({
       }
       return true;
     },
-    goToPostCart(productId,currentNum,inventory){
-      this.getCart(false)
-      if(this.isSmLoading && this.validateQuantity(currentNum, inventory) && this.validateCartQuantity(productId, currentNum, inventory)){
-        this.postCart(productId, parseInt(currentNum));
-      };
+    async goToPostCart(productId,currentNum,inventory){
+      try {
+        await this.getCart(false);
+        if(this.validateQuantity(currentNum, inventory) && this.validateCartQuantity(productId, currentNum, inventory)){
+          this.postCart(productId, parseInt(currentNum));
+        };
+      }
+      catch (err){
+        alert('取得購物車資訊失敗，請稍後再試');
+      }
     },
     ...mapActions(productsStore, ['getProduct',]),
     ...mapActions(cartsStore, ['getCart','postCart'])

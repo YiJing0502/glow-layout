@@ -43,6 +43,11 @@ export default defineStore('cartsStore', {
             resolve(); // 完成 Promise
           })
           .catch(err=>{
+            if (isInitialLoad) {
+              // 關閉整頁的Loading
+              this.isLoading = false;
+            };
+            this.isSmLoading = false;
             alert('取得購物車資訊失敗，請稍後再試');
             reject(err); // 拒絕 Promise，傳遞錯誤
           })
@@ -60,8 +65,9 @@ export default defineStore('cartsStore', {
           }
         };
         await axios.post(url, data);
-        await this.getCart(false);
         alert('加入購物車成功');
+        // 更新畫面顯示目前購物車狀態
+        await this.getCart(false);
       }
       catch {
         alert('加入購物車失敗，請稍後再試')

@@ -25,13 +25,23 @@ const app = createApp({
       this.currentNum = parseInt(this.currentNum);
       if(this.currentNum >= 1 && this.currentNum<this.showData.inventory){
         this.currentNum += 1;
+        return;
       };
+      if(this.currentNum >= this.showData.inventory){
+        alert('很抱歉，不能超出此庫存量');
+        return;
+      }
     },
     // 減少數量
     minusNum(){
       this.currentNum = parseInt(this.currentNum);
       if(this.currentNum > 1){
         this.currentNum -= 1;
+        return;
+      };
+      if(this.currentNum <= 1){
+        alert('很抱歉，最低數量為1');
+        return;
       };
     },
     // 輸入, 自訂數量
@@ -39,9 +49,17 @@ const app = createApp({
       this.currentNum = parseInt(e.target.value);
       if(this.currentNum > this.showData.inventory){
         this.currentNum = this.showData.inventory;
+        alert('很抱歉，不能超出此庫存量');
+        return;
       }else if(this.currentNum <= 0){
         this.currentNum = 1;
-      };
+        alert('很抱歉，最低數量為1');
+        return;
+      }else if(isNaN(this.currentNum)){
+        alert('請輸入有效的數字');
+        this.currentNum = 1;
+        return;
+      }
     },
     validateQuantity(currentNum, inventory) {
       if (parseInt(currentNum) > inventory) {

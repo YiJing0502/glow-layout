@@ -3,6 +3,7 @@ export default {
   data() {
     return {
       currentNum: 1,
+      currentQty: 1,
     }
   },
   props: ['inventory', 'id', 'qty','productCartId'],
@@ -14,6 +15,11 @@ export default {
       if(this.currentNum >= 1 && this.currentNum<this.inventory){
         this.currentNum += 1;
         this.$emit('putNum', this.productCartId, this.id, this.currentNum);
+        return;
+      };
+      if(this.currentNum >= this.inventory){
+        alert('很抱歉，不能超出此庫存量');
+        return;
       };
     },
     // 按鈕, 減少數量
@@ -22,6 +28,11 @@ export default {
       if(this.currentNum > 1){
         this.currentNum -= 1;
         this.$emit('putNum', this.productCartId, this.id, this.currentNum);
+        return;
+      };
+      if(this.currentNum <= 1){
+        alert('很抱歉，最低數量為1');
+        return;
       };
     },
     // 輸入, 自訂數量
@@ -29,8 +40,20 @@ export default {
       this.currentNum = parseInt(e.target.value);
       if(this.currentNum > this.inventory){
         this.currentNum = this.inventory;
+        this.$emit('putNum', this.productCartId, this.id, this.currentNum);
+        alert('很抱歉，不能超出此庫存量');
+        return;
       }else if(this.currentNum <= 0){
         this.currentNum = 1;
+        this.$emit('putNum', this.productCartId, this.id, this.currentNum);
+        alert('很抱歉，最低數量為1');
+        return;
+      }else if(this.currentNum === this.currentQty){
+        return;
+      }else if(isNaN(this.currentNum)){
+        alert('請輸入有效的數字');
+        this.currentNum = this.currentQty;
+        return;
       };
       this.$emit('putNum', this.productCartId, this.id, this.currentNum);
     }
@@ -38,6 +61,7 @@ export default {
   watch: {
     qty(newQty, oldQty){
       this.currentNum = newQty;
+      this.currentQty = newQty;
     }
   },
   mounted() {
@@ -45,6 +69,7 @@ export default {
       this.$emit('putNum', this.productCartId, this.id, this.inventory);
     };
     this.currentNum = this.qty;
+    this.currentQty = this.qty;
   },
   template: `<div class="d-flex">
   <div class="bg-white d-flex w-50 mb-3 gap-3 border">

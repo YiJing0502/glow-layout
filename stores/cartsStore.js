@@ -8,7 +8,7 @@ export default defineStore('cartsStore', {
     allCartsData: [],
     // 是否為載入中（全頁）
     isLoading: false,
-    // 是否為載入中(加入購物車的狀態)
+    // 是否為載入中(加入購物車的狀態, productDetail)
     isSmLoading: false,
   }),
   getters: {
@@ -59,6 +59,7 @@ export default defineStore('cartsStore', {
     },
     // ajax, 加入購物車商品方法
     async postCart(productId, qty) {
+      this.isSmLoading = true;
       try {
         const url = `${baseUrl}/v2/api/${apiPath}/cart`;
         const data = {
@@ -68,11 +69,13 @@ export default defineStore('cartsStore', {
           }
         };
         await axios.post(url, data);
+        this.isSmLoading = false;
         alert('加入購物車成功');
         // 更新畫面顯示目前購物車狀態
         await this.getCart(false);
       }
       catch {
+        this.isSmLoading = false;
         alert('加入購物車失敗，請稍後再試')
       }
     },

@@ -62,7 +62,11 @@
             <p class="d-flex align-items-end ms-3">目前庫存：{{ showData.inventory }}</p>
           </div>
           <!-- 加入購物車 -->
-          <div v-if="isSmLoading" class="">loading</div>
+          <div v-if="isSmLoading" class="d-flex mb-3 position-relative">
+            <loading :active="isSmLoading" :is-full-page="false" :color="'#52504B'" :width="30" :height="30">
+            </loading>
+            <button type="button" class="btn btn-solid-spec w-100 btn-lg">正在加入購物車</button>
+          </div>
           <div v-else class="d-flex mb-3">
             <button type="button" class="btn btn-solid-spec w-100 btn-lg"
               @click="goToPostCart(showData.id, currentNum, showData.inventory)">加入購物車</button>

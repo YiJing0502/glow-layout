@@ -1,6 +1,5 @@
 const { createApp } = Vue;
 // 元件
-import QuantityControlBtns from '../components/QuantityControlBtns.js';
 const { createPinia, mapState, mapActions } = Pinia;
 import productsStore from '../stores/productsStore.js';
 import cartsStore from '../stores/cartsStore.js';
@@ -9,11 +8,7 @@ const app = createApp({
   data() {
     return {
       currentNum: 1,
-
     }
-  },
-  components: {
-    QuantityControlBtns,
   },
   computed: {
     ...mapState(productsStore, ['isLoading', 'showData',]),

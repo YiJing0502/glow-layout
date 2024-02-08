@@ -1,8 +1,6 @@
 const { createApp } = Vue;
 const { createPinia, mapActions, mapState } = Pinia;
 import ordersStore from '../stores/ordersStore.js';
-// 元件
-import QuantityControlBtns from '../components/QuantityControlBtns.js';
 
 const app = createApp({
   data() {
@@ -26,9 +24,6 @@ const app = createApp({
         }
       },
     }
-  },
-  components: {
-    QuantityControlBtns,
   },
   methods: {
     ...mapActions(ordersStore, ['getOrder', 'postPayOrder'])
